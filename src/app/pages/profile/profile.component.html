@@ -2,15 +2,15 @@
   <div class="profile-page">
     <app-navbar></app-navbar>
     <div class="content">
-      <div class="profile-box" style="max-width: 20rem;">
+      <div class="profile-box">
 
         <div style="text-align: right;">
-          <h1>Display name</h1>
+          <h1>Username</h1>
         </div>
 
         <div class="card bg-light mb-3">
           <div class="card-body">
-            <p class="card-text">username</p>
+            <p class="card-text">Display name</p>
           </div>
         </div>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="edit-button">
-          <app-button id="editProfileButton" text="Edit"></app-button>
+          <app-button id="editProfileButton" text="Edit" (click)="goToEdit()"></app-button>
         </div>
 
       </div>

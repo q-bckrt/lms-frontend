@@ -5,7 +5,7 @@ html, body {
 }
 
 /* Main container for the entire page */
-.profile-page {
+.edit-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -23,6 +23,11 @@ html, body {
   box-sizing: border-box;
 }
 
+/* Keep your existing login-password rule */
+.register-repeat-password {
+  margin-bottom: 2vh;
+}
+
 /* Ensure navbar and footer don't shrink */
 app-navbar,
 app-footer {
@@ -30,13 +35,13 @@ app-footer {
 }
 
 /* Optional: Style the login box */
-.profile-box {
+.edit-box {
   width: 100%;
   max-width: 400px;
   padding: 30px;
   box-sizing: border-box;
 }
 
-.edit-button {
+.save-button {
   text-align: right;
 }
