@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,22 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
+  pageTitle = ''
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const url = this.router.url
+        this.pageTitle = this.getTitleFromUrl(url)
+      })
+  }
+
+   getTitleFromUrl(url: string): string {
+    if (url === '/login') return 'Login';
+    if (url === '/register') return 'Register';
+    if (url === '/') return 'Home';
+    return 'My App';
+  }
 
   goToLogin(): void {
     console.log('Login button clicked');

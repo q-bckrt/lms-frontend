@@ -1,0 +1,26 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+app-navbar,
+app-footer {
+  flex-shrink: 0;
+}
