@@ -1,6 +1,20 @@
 <nav class="navbar navbar-expand-lg bg-dark text-white position-relative">
-  <div class="container-fluid d-flex justify-content-end align-items-center">
-    <h1 class="position-absolute start-50 translate-middle-x m-0"> {{ pageTitle }}</h1>
+  <div class="container-fluid d-flex justify-content-between align-items-center position-relative">
+
+    <!-- Left side -->
+    <div class="d-flex gap-2">
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <app-button text="Class"></app-button>
+        <app-button text="Overview"></app-button>
+      </ng-container>
+    </div>
+
+    <!-- Center title -->
+    <h1 class="position-absolute start-50 translate-middle-x m-0">
+      {{ pageTitle }}
+    </h1>
+
+    <!-- Right side -->
     <div class="d-flex gap-2">
       <ng-container *ngIf="!authService.isLoggedIn(); else loggedInTemplate">
         <app-button text="Login" (clicked)="goToLogin()"></app-button>
@@ -8,11 +22,10 @@
       </ng-container>
 
       <ng-template #loggedInTemplate>
-        <app-button text="Class"></app-button>
-        <app-button text="Overview"></app-button>
         <app-button text="Profile" (clicked)="goToProfile()"></app-button>
         <app-button text="Logout" (clicked)="logout()"></app-button>
       </ng-template>
     </div>
+
   </div>
 </nav>
