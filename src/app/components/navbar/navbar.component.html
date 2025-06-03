@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg bg-dark text-white">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <h1>placeholder</h1>
-    <div>
+<nav class="navbar navbar-expand-lg bg-dark text-white position-relative">
+  <div class="container-fluid d-flex justify-content-end align-items-center">
+    <h1 class="position-absolute start-50 translate-middle-x m-0"> {{ pageTitle }}</h1>
+    <div class="d-flex gap-2">
       <app-button text="Login" (clicked)="goToLogin()"></app-button>
       <app-button text="Register" (clicked)="goToRegister()"></app-button>
     </div>
