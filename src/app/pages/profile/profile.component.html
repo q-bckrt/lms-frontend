@@ -1,1 +1,37 @@
-<app-navbar />
+<main>
+  <div class="profile-page">
+    <app-navbar></app-navbar>
+    <div class="content">
+      <div class="profile-box" style="max-width: 20rem;">
+
+        <div style="text-align: right;">
+          <h1>Display name</h1>
+        </div>
+
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <p class="card-text">username</p>
+          </div>
+        </div>
+
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <p class="card-text">email</p>
+          </div>
+        </div>
+
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <p class="card-text">July class</p>
+          </div>
+        </div>
+
+        <div class="edit-button">
+          <app-button id="editProfileButton" text="Edit"></app-button>
+        </div>
+
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</main>

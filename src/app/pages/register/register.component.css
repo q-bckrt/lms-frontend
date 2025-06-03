@@ -41,3 +41,7 @@ app-footer {
   padding: 30px;
   box-sizing: border-box;
 }
+
+.register-button {
+  text-align: right;
+}

@@ -41,3 +41,7 @@ app-footer {
   padding: 30px;
   box-sizing: border-box;
 }
+
+.login-button {
+  text-align: right;
+}
