@@ -2,16 +2,21 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../services/auth-service.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   pageTitle = ''
-  constructor(private router: Router) {
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -21,6 +26,7 @@ export class NavbarComponent {
   }
 
    getTitleFromUrl(url: string): string {
+    if (url === '/profile') return 'Profile';
     if (url === '/login') return 'Login';
     if (url === '/register') return 'Register';
     if (url === '/') return 'Home';
@@ -35,5 +41,15 @@ export class NavbarComponent {
   goToRegister(): void {
     console.log('Register button clicked');
     this.router.navigate(['/register']);
+  }
+
+  goToProfile(): void {
+    console.log('Profile button clicked')
+    this.router.navigate(['/profile'])
+  }
+
+  logout() {
+    this.authService.logout()
+    this.router.navigate(['/home'])
   }
 }
