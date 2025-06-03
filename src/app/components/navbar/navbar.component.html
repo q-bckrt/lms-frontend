@@ -2,8 +2,17 @@
   <div class="container-fluid d-flex justify-content-end align-items-center">
     <h1 class="position-absolute start-50 translate-middle-x m-0"> {{ pageTitle }}</h1>
     <div class="d-flex gap-2">
-      <app-button text="Login" (clicked)="goToLogin()"></app-button>
-      <app-button text="Register" (clicked)="goToRegister()"></app-button>
+      <ng-container *ngIf="!authService.isLoggedIn(); else loggedInTemplate">
+        <app-button text="Login" (clicked)="goToLogin()"></app-button>
+        <app-button text="Register" (clicked)="goToRegister()"></app-button>
+      </ng-container>
+
+      <ng-template #loggedInTemplate>
+        <app-button text="Class"></app-button>
+        <app-button text="Overview"></app-button>
+        <app-button text="Profile" (clicked)="goToProfile()"></app-button>
+        <app-button text="Logout" (clicked)="logout()"></app-button>
+      </ng-template>
     </div>
   </div>
 </nav>
