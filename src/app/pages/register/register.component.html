@@ -1,1 +1,61 @@
-<p>register works!</p>
+<main>
+  <div class="register-page">
+    <app-navbar></app-navbar>
+    <div class="content">
+      <div class="register-box">
+        <form id="registerForm">
+          <div>
+            <label for="email" class="form-label mt-4">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter email"
+              autocomplete="email"
+              required
+            >
+          </div>
+          <div>
+            <label for="username" class="form-label mt-4">Display name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter display name"
+              autocomplete="name"
+              required
+            >
+          </div>
+          <div class="register-password">
+            <label for="password" class="form-label mt-4">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="new-password"
+              required
+            >
+          </div>
+          <div class="register-repeat-password">
+            <label for="confirmPassword" class="form-label mt-4">Confirm password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Repeat password"
+              autocomplete="new-password"
+              required
+            >
+          </div>
+          <app-button id="registerButton" text="Register"></app-button>
+        </form>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</main>
