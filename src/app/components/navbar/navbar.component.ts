@@ -36,4 +36,9 @@ export class NavbarComponent {
     console.log('Register button clicked');
     this.router.navigate(['/register']);
   }
+
+  goToProfile(): void {
+    console.log('Profile button clicked')
+    this.router.navigate(['/profile'])
+  }
 }
