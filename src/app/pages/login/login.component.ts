@@ -29,13 +29,25 @@ export class LoginComponent {
     const emailInput = (document.getElementById('email') as HTMLInputElement).value;
     const passwordInput = (document.getElementById('password') as HTMLInputElement).value;
 
-    // Here, you'd normally validate credentials with a backend.
-    if (emailInput && passwordInput) {
-      // Simulate successful login
-      this.authService.login(); // This will trigger the navbar to change
-      this.router.navigate(['/profile']); // Or redirect anywhere you'd like
-    } else {
-      alert('Please enter both email and password');
+    if (!emailInput || !passwordInput) {
+      alert('Please enter both email and password')
+      return
     }
+
+    let role: 'student' | 'coach' = 'student';
+    if (emailInput.includes('coach')) {
+      role = 'coach'
+    }
+
+    const dummyUser = {
+      username: emailInput.split('@')[0],
+      displayName: role === 'student' ? 'Student User' : 'Coach User',
+      email: emailInput,
+      role: role
+    }
+
+    localStorage.setItem('user', JSON.stringify(dummyUser))
+    this.authService.login()
+    this.router.navigate(['/profile'])
   }
 }
