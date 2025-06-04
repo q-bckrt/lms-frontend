@@ -18,13 +18,6 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    const loginButton = document.getElementById('loginButton');
-    loginButton?.addEventListener('click', () => {
-      this.handleLogin();
-    });
-  }
-
   handleLogin() {
     const email = (document.getElementById('email') as HTMLInputElement).value.trim();
     const password = (document.getElementById('password') as HTMLInputElement).value.trim();
