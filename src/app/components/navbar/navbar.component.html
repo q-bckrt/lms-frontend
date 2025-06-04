@@ -4,7 +4,7 @@
     <!-- Left side -->
     <div class="d-flex gap-2">
       <ng-container *ngIf="authService.isLoggedIn()">
-        <app-button text="Dashboard"></app-button>
+        <app-button text="Dashboard" (clicked)="goToDashboard()"></app-button>
         <app-button text="Class"></app-button>
         <app-button text="Overview"></app-button>
       </ng-container>

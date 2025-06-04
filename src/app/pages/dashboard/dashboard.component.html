@@ -1,0 +1,27 @@
+<main class="dashboard-page">
+  <app-navbar></app-navbar>
+  <div class="content w-100 px-4">
+
+    <h2 class="mb-4">Welcome, {{ username }}</h2>
+
+    <div *ngIf="userRole === 'coach'">
+      <h3>Coach Tools</h3>
+      <app-button text="Create Class" (clicked)="goTo('/create-class')"></app-button>
+      <app-button text="Create Course" (clicked)="goTo('/create-course')"></app-button>
+      <app-button text="Create Module" (clicked)="goTo('/create-module')"></app-button>
+      <app-button text="Create Sub-Module" (clicked)="goTo('/create-submodule')"></app-button>
+      <app-button text="Create Codelab" (clicked)="goTo('/create-codelab')"></app-button>
+      <app-button text="View Progression" (clicked)="goTo('/progress-overview')"></app-button>
+    </div>
+
+    <div *ngIf="userRole === 'student'">
+      <h3>My Learning</h3>
+      <app-button text="View My Class" (clicked)="goTo('/class-overview')"></app-button>
+      <app-button text="View Courses" (clicked)="goTo('/courses')"></app-button>
+      <app-button text="View Modules" (clicked)="goTo('/modules')"></app-button>
+      <app-button text="View Codelabs" (clicked)="goTo('/codelabs')"></app-button>
+    </div>
+
+  </div>
+  <app-footer></app-footer>
+</main>

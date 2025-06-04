@@ -26,12 +26,13 @@ export class NavbarComponent {
   }
 
    getTitleFromUrl(url: string): string {
+    if (url === '/dashboard') return 'Dashboard';
     if (url === '/edit') return 'Edit Profile';
     if (url === '/profile') return 'Profile';
     if (url === '/login') return 'Login';
     if (url === '/register') return 'Register';
     if (url === '/') return 'Home';
-    return 'My App';
+    return 'LMS App';
   }
 
   goToLogin(): void {
@@ -47,6 +48,11 @@ export class NavbarComponent {
   goToProfile(): void {
     console.log('Profile button clicked')
     this.router.navigate(['/profile'])
+  }
+
+  goToDashboard(): void {
+    console.log('Dashboard button clicked')
+    this.router.navigate(['/dashboard'])
   }
 
   logout() {
