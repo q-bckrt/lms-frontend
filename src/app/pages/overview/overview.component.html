@@ -1,0 +1,32 @@
+<main>
+  <div class="overview-page">
+    <app-navbar></app-navbar>
+
+    <div class="content container mt-4">
+      <div *ngIf="userRole === 'student'">
+        <div class="d-flex flex-wrap gap-4 justify-content-start">
+          <div class="card bg-light" style="width: 20rem;" *ngFor="let card of cards">
+            <div class="card-header">
+              {{ card.header }}
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-3 py-2" *ngFor="let codelab of card.codelabs | keyvalue">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>{{ codelab.value }}</span>
+                  <select class="form-select form-select-sm w-auto ms-2">
+                    <option value="not-started">Not Started</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="done">Done</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+  </div>
+</main>

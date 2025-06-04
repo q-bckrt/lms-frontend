@@ -55,6 +55,11 @@ export class NavbarComponent {
     this.router.navigate(['/dashboard'])
   }
 
+  goToOverview(): void {
+    console.log('Overview button clicked');
+    this.router.navigate(['/overview']);
+  }
+
   logout() {
     this.authService.logout()
     this.router.navigate(['/'])

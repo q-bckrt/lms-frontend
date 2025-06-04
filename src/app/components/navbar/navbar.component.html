@@ -6,7 +6,7 @@
       <ng-container *ngIf="authService.isLoggedIn()">
         <app-button text="Dashboard" (clicked)="goToDashboard()"></app-button>
         <app-button text="Class"></app-button>
-        <app-button text="Overview"></app-button>
+        <app-button text="Overview" (clicked)="goToOverview()"></app-button>
       </ng-container>
     </div>
 
