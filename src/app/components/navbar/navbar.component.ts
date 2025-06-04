@@ -26,6 +26,8 @@ export class NavbarComponent {
   }
 
    getTitleFromUrl(url: string): string {
+    if (url === '/overview') return 'Overview';
+    if (url === '/class') return 'Class';
     if (url === '/dashboard') return 'Dashboard';
     if (url === '/edit') return 'Edit Profile';
     if (url === '/profile') return 'Profile';
@@ -58,6 +60,11 @@ export class NavbarComponent {
   goToOverview(): void {
     console.log('Overview button clicked');
     this.router.navigate(['/overview']);
+  }
+
+  goToClass(): void {
+    console.log('Class button clicked');
+    this.router.navigate(['class']);
   }
 
   logout() {
