@@ -90,4 +90,10 @@ export class OverviewComponent {
       }
     }
   ];
+
+  students = [
+    { name: 'Alice', completedCodelabs: 3, totalCodelabs: 8 },
+    { name: 'Bob', completedCodelabs: 5, totalCodelabs: 8 },
+    { name: 'Charlie', completedCodelabs: 8, totalCodelabs: 8 }
+  ];
 }
