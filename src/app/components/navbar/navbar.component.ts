@@ -26,6 +26,7 @@ export class NavbarComponent {
   }
 
    getTitleFromUrl(url: string): string {
+    if (url === '/edit') return 'Edit Profile';
     if (url === '/profile') return 'Profile';
     if (url === '/login') return 'Login';
     if (url === '/register') return 'Register';
