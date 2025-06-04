@@ -73,8 +73,7 @@ export class RegisterComponent {
       role: 'student'
     };
 
-    localStorage.setItem('user', JSON.stringify(newUser));
-    this.authService.login();
+    this.authService.login(newUser);
     this.router.navigate(['/dashboard']);
   }
 }
