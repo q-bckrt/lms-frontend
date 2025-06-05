@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
         console.log('User response:', user);
         this.username = user.userName;           // note: userName, not username
         this.displayName = user.displayName;
+        this.email = user.email;
         this.classes = user.classes;              // array of classes, if you want to use it
       },
       error: (err) => {
