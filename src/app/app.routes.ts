@@ -9,6 +9,7 @@ import {OverviewComponent} from './pages/overview/overview.component';
 import {ClassComponent} from './pages/class/class.component';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
 import { CreateClassComponent } from './pages/create-class/create-class.component';
+import { CreateModuleComponent } from './pages/create-module/create-module.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,5 +21,6 @@ export const routes: Routes = [
   { path: 'overview', component: OverviewComponent },
   { path: 'class', component: ClassComponent },
   { path: 'create-course', component: CreateCourseComponent },
-  { path: 'create-class', component: CreateClassComponent }
+  { path: 'create-class', component: CreateClassComponent },
+  { path: 'create-module', component: CreateModuleComponent}
 ];
