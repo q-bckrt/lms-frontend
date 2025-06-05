@@ -51,6 +51,6 @@ export class LoginComponent {
     };
 
     this.authService.login(dummyUser);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/profile']);
   }
 }

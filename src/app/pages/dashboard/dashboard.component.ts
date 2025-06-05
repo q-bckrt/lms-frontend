@@ -17,8 +17,8 @@ export class DashboardComponent {
 
   constructor(private authService: AuthService) {
     const userData = JSON.parse(localStorage.getItem('user') || '{}')
-    this.userRole = userData.role
-    this.username = userData.username
+    this.userRole = this.authService.getUserRole();
+    this.username = this.authService.getUserName();
   }
 
   goTo(path: string) {}

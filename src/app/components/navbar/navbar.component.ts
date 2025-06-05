@@ -64,11 +64,16 @@ export class NavbarComponent {
 
   goToClass(): void {
     console.log('Class button clicked');
-    this.router.navigate(['class']);
+    this.router.navigate(['/class']);
   }
 
   logout() {
     this.authService.logout()
     this.router.navigate(['/'])
+  }
+
+  get displayText(): string {
+    const user = this.authService.getCurrentUser();
+    return user.role ? `Logged in as ${user.role} ${user.username}` : '';
   }
 }
