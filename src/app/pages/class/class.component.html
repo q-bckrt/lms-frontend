@@ -1,0 +1,20 @@
+<main>
+  <div class="class-page">
+    <app-navbar></app-navbar>
+
+    <div class="content container mt-4">
+      <h2>Class: {{ classInfo.name }}</h2>
+      <p><strong>Coach:</strong> {{ classInfo.coach }}</p>
+      <p><strong>Number of Students:</strong> {{ classInfo.members.length }}</p>
+
+      <h4 class="mt-4">Class Members</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let member of classInfo.members">
+          {{ member }}
+        </li>
+      </ul>
+    </div>
+
+    <app-footer></app-footer>
+  </div>
+</main>
