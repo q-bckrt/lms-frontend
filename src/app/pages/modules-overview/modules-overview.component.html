@@ -1,0 +1,15 @@
+<main class="overview-page">
+  <app-navbar></app-navbar>
+  <div class="content">
+    <h2>Modules Overview</h2>
+
+    <div *ngFor="let module of modules" class="card bg-light mb-3 w-100">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <span>{{ module.name }}</span>
+        <app-button text="Edit" (clicked)="editModule(module.id)"></app-button>
+      </div>
+    </div>
+
+  </div>
+  <app-footer></app-footer>
+</main>

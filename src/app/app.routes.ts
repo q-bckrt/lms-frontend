@@ -12,6 +12,7 @@ import { CreateClassComponent } from './pages/create-class/create-class.componen
 import { CreateModuleComponent } from './pages/create-module/create-module.component';
 import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.component';
 import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
+import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,5 +27,6 @@ export const routes: Routes = [
   { path: 'create-class', component: CreateClassComponent },
   { path: 'create-module', component: CreateModuleComponent },
   { path: 'create-codelab', component: CreateCodelabComponent },
-  { path: 'courses', component: CoursesOverviewComponent }
+  { path: 'courses', component: CoursesOverviewComponent },
+  { path: 'modules', component: ModulesOverviewComponent }
 ];
