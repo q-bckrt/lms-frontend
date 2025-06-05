@@ -46,6 +46,7 @@ export class LoginComponent {
     const dummyUser = {
       username: email.split('@')[0],
       displayName: role === 'student' ? 'Student User' : 'Coach User',
+      password : password,
       email,
       role
     };
