@@ -11,6 +11,7 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
 import { CreateClassComponent } from './pages/create-class/create-class.component';
 import { CreateModuleComponent } from './pages/create-module/create-module.component';
 import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.component';
+import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,5 +25,6 @@ export const routes: Routes = [
   { path: 'create-course', component: CreateCourseComponent },
   { path: 'create-class', component: CreateClassComponent },
   { path: 'create-module', component: CreateModuleComponent },
-  { path: 'create-codelab', component: CreateCodelabComponent }
+  { path: 'create-codelab', component: CreateCodelabComponent },
+  { path: 'courses', component: CoursesOverviewComponent }
 ];
