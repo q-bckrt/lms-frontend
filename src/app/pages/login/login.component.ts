@@ -50,8 +50,7 @@ export class LoginComponent {
       role
     };
 
-    localStorage.setItem('user', JSON.stringify(dummyUser));
-    this.authService.login();
+    this.authService.login(dummyUser);
     this.router.navigate(['/dashboard']);
   }
 }
