@@ -23,6 +23,8 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('loggedIn');
     this.isLoggedInSubject.next(false);
   }
 
@@ -33,5 +35,21 @@ export class AuthService {
   restoreLoginState() {
     const stored = localStorage.getItem('loggedIn');
     this.isLoggedInSubject.next(stored === 'true');
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  getUserRole(): 'student' | 'coach' {
+    return this.getCurrentUser().role || 'student';
+  }
+
+  getUserName(): string {
+    return this.getCurrentUser().username || '';
+  }
+
+  getDisplayName(): string {
+    return this.getCurrentUser().displayName || '';
   }
 }

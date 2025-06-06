@@ -6,6 +6,14 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import {EditComponent} from "./pages/edit/edit.component";
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {OverviewComponent} from './pages/overview/overview.component';
+import {ClassComponent} from './pages/class/class.component';
+import { CreateCourseComponent } from './pages/create-course/create-course.component';
+import { CreateClassComponent } from './pages/create-class/create-class.component';
+import { CreateModuleComponent } from './pages/create-module/create-module.component';
+import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.component';
+import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
+import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
+import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,5 +22,13 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'edit', component: EditComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'overview', component: OverviewComponent}
+  { path: 'overview', component: OverviewComponent },
+  { path: 'class', component: ClassComponent },
+  { path: 'create-course', component: CreateCourseComponent },
+  { path: 'create-class', component: CreateClassComponent },
+  { path: 'create-module', component: CreateModuleComponent },
+  { path: 'create-codelab', component: CreateCodelabComponent },
+  { path: 'courses', component: CoursesOverviewComponent },
+  { path: 'modules', component: ModulesOverviewComponent },
+  { path: 'codelabs', component: CodelabsOverviewComponent }
 ];

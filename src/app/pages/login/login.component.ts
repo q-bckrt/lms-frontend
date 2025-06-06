@@ -51,8 +51,7 @@ export class LoginComponent {
       role
     };
 
-    localStorage.setItem('user', JSON.stringify(dummyUser));
-    this.authService.login();
-    this.router.navigate(['/dashboard']);
+    this.authService.login(dummyUser);
+    this.router.navigate(['/profile']);
   }
 }
