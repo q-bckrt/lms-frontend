@@ -2,8 +2,10 @@ import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {HttpClient, HttpClientModule, provideHttpClient} from '@angular/common/http';
+
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {keycloakInterceptor} from './services/keycloak/keycloak.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), importProvidersFrom(HttpClientModule)]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(withInterceptors([keycloakInterceptor]))]
 };

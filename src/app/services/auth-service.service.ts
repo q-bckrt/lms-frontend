@@ -1,15 +1,25 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import {KeycloakServiceService} from './keycloak/keycloak-service.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  keyCloakService = inject(KeycloakServiceService)
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  login(user: any) {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('loggedIn', 'true');
-    this.isLoggedInSubject.next(true);
+  login() {
+
+    //Or
+    // return this.keyCloakService.login(JSON.parse(<string>localStorage.getItem('user')));
+    this.keyCloakService.login(JSON.parse(<string>localStorage.getItem('user'))).subscribe({
+      next : () => {
+        this.isLoggedInSubject.next(true);
+      },
+      error : (err) =>{
+        console.log(err)
+      }
+    })
   }
 
   logout() {
