@@ -11,6 +11,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserProfile(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/jdoe`);
+    return this.http.get(`${this.apiUrl}/${username}`);
   }
 }

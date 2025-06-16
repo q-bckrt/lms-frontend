@@ -4,6 +4,7 @@ import {ButtonComponent} from '../../components/button/button.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,25 +19,38 @@ export class ProfileComponent implements OnInit {
   email: string = '';
   classes: any[] = [];
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    private keycloakService: KeycloakServiceService
+  ) {}
 
   ngOnInit() {
-    // You can get the username from localStorage or auth service
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const username = user?.username;
-
-    if (!username) {
-      console.error('No username found');
+    // Get the token from session storage
+    const token = this.keycloakService.getToken();
+    console.log(token);
+    if (!token) {
+      console.error('No token found');
+      this.router.navigate(['/login']);
       return;
     }
 
-    this.userService.getUserProfile('jdoe').subscribe({
+    // Decode the JWT token to get user information
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+    const username = tokenPayload.preferred_username;
+
+    if (!username) {
+      console.error('No username found in token');
+      return;
+    }
+
+    this.userService.getUserProfile(username).subscribe({
       next: (user) => {
         console.log('User response:', user);
-        this.username = user.userName;           // note: userName, not username
+        this.username = user.userName;
         this.displayName = user.displayName;
         this.email = user.email;
-        this.classes = user.classes;              // array of classes, if you want to use it
+        this.classes = user.classes;
       },
       error: (err) => {
         console.error('Failed to load user profile:', err);

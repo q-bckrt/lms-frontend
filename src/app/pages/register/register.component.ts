@@ -73,7 +73,7 @@ export class RegisterComponent {
       role: 'student'
     };
 
-    this.authService.login(newUser);
+    // this.authService.login(newUser);
     this.router.navigate(['/dashboard']);
   }
 }

@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {ButtonComponent} from '../../components/button/button.component';
 import {FooterComponent} from '../../components/footer/footer.component';
-import { AuthService } from '../../services/auth-service.service';
-
+import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +11,10 @@ import { AuthService } from '../../services/auth-service.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
    constructor(
-    private authService: AuthService,
+    private keycloakService: KeycloakServiceService,
     private router: Router
   ) {}
 
@@ -30,28 +30,29 @@ export class LoginComponent {
       return;
     }
 
-    if (!emailRegex.test(email)) {
-      alert('Invalid email format');
-      return;
-    }
+    // if (!emailRegex.test(email)) {
+    //   alert('Invalid email format');
+    //   return;
+    // }
 
     if (spaceRegex.test(password)) {
       alert('Password must not contain spaces');
       return;
     }
 
-    // Determine role from email
-    let role: 'student' | 'coach' = email.includes('coach') ? 'coach' : 'student';
-
-    const dummyUser = {
-      username: email.split('@')[0],
-      displayName: role === 'student' ? 'Student User' : 'Coach User',
-      password : password,
-      email,
-      role
+    const loginData = {
+      username: email,
+      password: password
     };
 
-    this.authService.login(dummyUser);
-    this.router.navigate(['/profile']);
+    this.keycloakService.login(loginData).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Login failed. Please check your credentials.');
+      }
+    });
   }
 }

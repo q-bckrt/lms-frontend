@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '../../services/auth-service.service';
+import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
 export class NavbarComponent {
   pageTitle = ''
   constructor(
-    public authService: AuthService,
+    public keycloakService: KeycloakServiceService,
     private router: Router
   ) {
     this.router.events
@@ -68,12 +68,11 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.authService.logout()
-    this.router.navigate(['/'])
+    sessionStorage.removeItem('TOKEN_KEY_NAME');
+    this.router.navigate(['/']);
   }
 
-  get displayText(): string {
-    const user = this.authService.getCurrentUser();
-    return user.role ? `Logged in as ${user.role} ${user.username}` : '';
+  isLoggedIn(): boolean {
+    return !!this.keycloakService.getToken();
   }
 }

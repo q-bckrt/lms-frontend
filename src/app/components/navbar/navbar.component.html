@@ -3,7 +3,7 @@
 
     <!-- Left side -->
     <div class="d-flex gap-2">
-      <ng-container *ngIf="authService.isLoggedIn()">
+      <ng-container *ngIf="isLoggedIn()">
         <app-button text="Dashboard" (clicked)="goToDashboard()"></app-button>
         <app-button text="Class" (clicked)="goToClass()"></app-button>
         <app-button text="Overview" (clicked)="goToOverview()"></app-button>
@@ -17,7 +17,7 @@
 
     <!-- Right side -->
     <div class="d-flex gap-2">
-      <ng-container *ngIf="!authService.isLoggedIn(); else loggedInTemplate">
+      <ng-container *ngIf="!isLoggedIn(); else loggedInTemplate">
         <app-button text="Login" (clicked)="goToLogin()"></app-button>
         <app-button text="Register" (clicked)="goToRegister()"></app-button>
       </ng-container>
