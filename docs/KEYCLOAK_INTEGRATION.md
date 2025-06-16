@@ -29,7 +29,7 @@ The LMS frontend integrates with Keycloak for authentication and user management
 }
 ```
 
-### Authentication Service
+### Keycloak Service
 The `AuthService` handles:
 - Login/logout operations
 - Token management
