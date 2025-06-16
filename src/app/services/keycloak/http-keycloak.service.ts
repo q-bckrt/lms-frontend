@@ -11,6 +11,11 @@ export class HttpKeycloakService {
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'})
   };
+
+  private jsonHttpOptions = {
+    headers: new HttpHeaders({'Content-Type':'application/json'})
+  };
+
   login(loginData:any){
     const body = new URLSearchParams();
     body.set('username',loginData.username);
@@ -21,4 +26,7 @@ export class HttpKeycloakService {
     return this.httpClient.post<KeycloakTokenResponse>("https://keycloak.switchfully.com/realms/java-2025-03/protocol/openid-connect/token",body,this.httpOptions);
   }
 
+  register(registerData: any) {
+    return this.httpClient.post("http://localhost:8080/users", registerData, this.jsonHttpOptions);
+  }
 }

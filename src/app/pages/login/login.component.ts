@@ -30,11 +30,6 @@ export class LoginComponent {
       return;
     }
 
-    // if (!emailRegex.test(email)) {
-    //   alert('Invalid email format');
-    //   return;
-    // }
-
     if (spaceRegex.test(password)) {
       alert('Password must not contain spaces');
       return;

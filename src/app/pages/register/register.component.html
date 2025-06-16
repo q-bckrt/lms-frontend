@@ -3,7 +3,20 @@
     <app-navbar></app-navbar>
     <div class="content">
       <div class="register-box">
-        <form id="registerForm">
+        <form id="registerForm" (ngSubmit)="handleRegister()">
+          <div>
+            <label for="userName" class="form-label mt-4">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="userName"
+              name="userName"
+              [(ngModel)]="formData.userName"
+              placeholder="Enter username"
+              required
+            >
+          </div>
+
           <div>
             <label for="email" class="form-label mt-4">Email address</label>
             <input
@@ -11,23 +24,39 @@
               class="form-control"
               id="email"
               name="email"
+              [(ngModel)]="formData.email"
               placeholder="Enter email"
               autocomplete="email"
               required
             >
           </div>
+
           <div>
-            <label for="username" class="form-label mt-4">Username</label>
+            <label for="firstName" class="form-label mt-4">First Name</label>
             <input
               type="text"
               class="form-control"
-              id="username"
-              name="username"
-              placeholder="Enter username"
-              autocomplete="name"
+              id="firstName"
+              name="firstName"
+              [(ngModel)]="formData.firstName"
+              placeholder="Enter first name"
               required
             >
           </div>
+
+          <div>
+            <label for="lastName" class="form-label mt-4">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              name="lastName"
+              [(ngModel)]="formData.lastName"
+              placeholder="Enter last name"
+              required
+            >
+          </div>
+
           <div class="register-password">
             <label for="password" class="form-label mt-4">Password</label>
             <input
@@ -35,11 +64,13 @@
               class="form-control"
               id="password"
               name="password"
+              [(ngModel)]="formData.password"
               placeholder="Password"
               autocomplete="new-password"
               required
             >
           </div>
+
           <div class="register-repeat-password">
             <label for="confirmPassword" class="form-label mt-4">Confirm password</label>
             <input
@@ -47,13 +78,15 @@
               class="form-control"
               id="confirmPassword"
               name="confirmPassword"
+              [(ngModel)]="formData.confirmPassword"
               placeholder="Repeat password"
               autocomplete="new-password"
               required
             >
           </div>
+
           <div class="register-button">
-            <app-button id="registerButton" text="Register"></app-button>
+            <app-button id="registerButton" text="Register" type="submit"></app-button>
           </div>
         </form>
       </div>

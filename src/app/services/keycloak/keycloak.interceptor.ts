@@ -8,6 +8,11 @@ export const keycloakInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
+  // Skip interceptor for registration endpoint (POST to /users)
+  if (req.url.includes('http://localhost:8080/users') && req.method === 'POST') {
+    return next(req);
+  }
+
   const keycloakService = inject(KeycloakServiceService)
   req = req.clone({
     setHeaders: {

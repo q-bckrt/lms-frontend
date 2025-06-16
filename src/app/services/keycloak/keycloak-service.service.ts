@@ -19,8 +19,11 @@ export class KeycloakServiceService {
     );
   }
 
+  register(registerData: any): Observable<any> {
+    return this.httpKeyCloakService.register(registerData);
+  }
+
   getToken(){
     return sessionStorage.getItem(this.TOKEN_KEY_NAME);
   }
-
 }

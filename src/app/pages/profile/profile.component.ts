@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     // Get the token from session storage
     const token = this.keycloakService.getToken();
-    console.log(token);
     if (!token) {
       console.error('No token found');
       this.router.navigate(['/login']);

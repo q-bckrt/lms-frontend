@@ -12,7 +12,7 @@ html, body {
   min-height: 100vh;
 }
 
-/* Modify your existing .content rule */
+/* Content area */
 .content {
   display: flex;
   flex-direction: column;
@@ -23,25 +23,28 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Keep your existing login-password rule */
-.register-repeat-password {
-  margin-bottom: 2vh;
+/* Register box */
+.register-box {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+/* Form controls */
+.form-control {
+  margin-bottom: 10px;
+}
+
+/* Register button container */
+.register-button {
+  text-align: right;
+  margin-top: 20px;
 }
 
 /* Ensure navbar and footer don't shrink */
 app-navbar,
 app-footer {
   flex-shrink: 0;
-}
-
-/* Optional: Style the login box */
-.register-box {
-  width: 100%;
-  max-width: 400px;
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-.register-button {
-  text-align: right;
 }

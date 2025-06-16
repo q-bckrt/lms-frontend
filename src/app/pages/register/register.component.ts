@@ -1,79 +1,91 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {ButtonComponent} from "../../components/button/button.component";
-import {FooterComponent} from "../../components/footer/footer.component";
-import {NavbarComponent} from "../../components/navbar/navbar.component";
-import { AuthService } from '../../services/auth-service.service';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ButtonComponent } from '../../components/button/button.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-    imports: [
-        ButtonComponent,
-        FooterComponent,
-        NavbarComponent
-    ],
+  imports: [NavbarComponent, ButtonComponent, FooterComponent, FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  formData = {
+    userName: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    confirmPassword: ''
+  };
+
   constructor(
-    private authService: AuthService,
+    private keycloakService: KeycloakServiceService,
     private router: Router
   ) {}
 
   handleRegister() {
-    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
-    const username = (document.getElementById('username') as HTMLInputElement).value.trim();
-    const password = (document.getElementById('password') as HTMLInputElement).value.trim();
-    const confirmPassword = (document.getElementById('confirmPassword') as HTMLInputElement).value.trim();
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const spaceRegex = /\s/;
-
-    // Check required
-    if (!email || !username || !password || !confirmPassword) {
-      alert('All fields are required');
+    // Validate form data
+    if (!this.validateForm()) {
       return;
     }
 
-    // Check email format
-    if (!emailRegex.test(email)) {
-      alert('Invalid email format');
-      return;
-    }
-
-    // Check for spaces
-    if (spaceRegex.test(username)) {
-      alert('Username must not contain spaces');
-      return;
-    }
-
-    if (spaceRegex.test(password)) {
-      alert('Password must not contain spaces');
-      return;
-    }
-
-    // Check password match
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-
-    // Optional: check for duplicate emails
-    const existingUser = JSON.parse(localStorage.getItem('user') || '{}');
-    if (existingUser.email === email) {
-      alert('Email already registered');
-      return;
-    }
-
-    const newUser = {
-      username,
-      displayName: username,
-      email,
-      role: 'student'
+    const registerData = {
+      userName: this.formData.userName,
+      firstName: this.formData.firstName,
+      lastName: this.formData.lastName,
+      email: this.formData.email,
+      password: this.formData.password
     };
 
-    // this.authService.login(newUser);
-    this.router.navigate(['/dashboard']);
+    this.keycloakService.register(registerData).subscribe({
+      next: () => {
+        alert('Registration successful! Please login.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Registration failed:', err);
+        alert('Registration failed. Please try again.');
+      }
+    });
+  }
+
+  private validateForm(): boolean {
+    // Check if all fields are filled
+    if (!this.formData.userName || !this.formData.email || !this.formData.firstName || 
+        !this.formData.lastName || !this.formData.password || !this.formData.confirmPassword) {
+      alert('Please fill in all fields');
+      return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.formData.email)) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+
+    // Validate password match
+    if (this.formData.password !== this.formData.confirmPassword) {
+      alert('Passwords do not match');
+      return false;
+    }
+
+    // Validate password length
+    if (this.formData.password.length < 6) {
+      alert('Password must be at least 6 characters long');
+      return false;
+    }
+
+    // Validate username format (no spaces)
+    if (/\s/.test(this.formData.userName)) {
+      alert('Username cannot contain spaces');
+      return false;
+    }
+
+    return true;
   }
 }
