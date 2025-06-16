@@ -36,8 +36,3 @@ The LMS (Learning Management System) frontend is built using Angular and follows
 - Component-scoped CSS
 - Global styles in the assets directory
 - Responsive design implementation
-
-## Testing
-- Unit tests for components and services
-- Test files follow the naming convention `*.spec.ts`
-- Testing utilities and mocks are available

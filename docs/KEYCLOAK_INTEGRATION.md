@@ -29,18 +29,12 @@ The LMS frontend integrates with Keycloak for authentication and user management
 }
 ```
 
-### Authentication Service
+### Keycloak Service
 The `AuthService` handles:
 - Login/logout operations
 - Token management
-- User role verification
+- User role verification(TO BE IMPLEMENTED)
 - Session persistence
-
-### Security Features
-- JWT token validation
-- Role-based access control
-- Token refresh mechanism
-- Secure storage of credentials
 
 ## User Roles
 - Student: Basic access to courses and materials
@@ -51,10 +45,3 @@ The `AuthService` handles:
 - Registration component
 - TO BE IMPLEMENTED: Auth guard for protected routes
 - HTTP interceptors for token management
-
-## Error Handling
-- Authentication failures
-- Token expiration
-- Network issues
-- Invalid credentials
- 
