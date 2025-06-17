@@ -3,7 +3,8 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { NgFor, NgIf } from '@angular/common';
-import { AuthService } from '../../services/auth-service.service';
+import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
+import { UserService } from '../../services/user-service.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,16 +14,34 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  userRole: 'student' | 'coach' = 'student'; // default
-  username = 'JDoe';
+  userRole = '';
+  username = '';
 
   constructor(
-    private authService: AuthService,
+    private keycloakService: KeycloakServiceService,
+    private userService: UserService,
     private router: Router
   ) {
-    const userData = JSON.parse(localStorage.getItem('user') || '{}')
-    this.userRole = this.authService.getUserRole();
-    this.username = this.authService.getUserName();
+    this.initializeUserData();
+  }
+
+  private initializeUserData() {
+    const token = this.keycloakService.getToken();
+    if (token) {
+      try {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        this.username = tokenData.preferred_username;
+        
+        // Check if user has COACH role in lms resource
+        if (tokenData.resource_access?.lms?.roles?.includes('COACH')) {
+          this.userRole = 'coach';
+        } else {
+          this.userRole = 'student';
+        }
+      } catch (error) {
+        console.error('Error parsing token:', error);
+      }
+    }
   }
 
   goTo(path: string) {
