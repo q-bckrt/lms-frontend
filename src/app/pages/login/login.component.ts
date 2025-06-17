@@ -4,6 +4,7 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {ButtonComponent} from '../../components/button/button.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
+import { RoleService } from '../../services/role-service.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ import { KeycloakServiceService } from '../../services/keycloak/keycloak-service
 export class LoginComponent {
    constructor(
     private keycloakService: KeycloakServiceService,
-    private router: Router
+    private router: Router,
+    private roleService: RoleService
   ) {}
 
   handleLogin() {
@@ -42,6 +44,8 @@ export class LoginComponent {
 
     this.keycloakService.login(loginData).subscribe({
       next: () => {
+        // Refresh the role after successful login
+        this.roleService.refreshRole();
         this.router.navigate(['/profile']);
       },
       error: (err) => {

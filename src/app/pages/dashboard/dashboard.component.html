@@ -4,7 +4,7 @@
 
     <h2 class="mb-4">Welcome, {{ username }}</h2>
 
-    <div *ngIf="userRole === 'coach'">
+    <div *ngIf="roleService.isCoach()">
       <h3>Learning</h3>
       <app-button text="View My Class" (clicked)="goTo('/class')"></app-button>
       <app-button text="View Courses" (clicked)="goTo('/courses')"></app-button>
@@ -19,7 +19,7 @@
       <app-button text="View Progression" (clicked)="goTo('/progress-overview')"></app-button>
     </div>
 
-    <div *ngIf="userRole === 'student'">
+    <div *ngIf="roleService.isStudent()">
       <h3>My Learning</h3>
       <app-button text="View My Class" (clicked)="goTo('/class')"></app-button>
       <app-button text="View Courses" (clicked)="goTo('/courses')"></app-button>

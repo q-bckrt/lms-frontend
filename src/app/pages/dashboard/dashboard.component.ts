@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -6,6 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { UserService } from '../../services/user-service.service';
 import { Router } from '@angular/router';
+import { RoleService } from '../../services/role-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,15 +14,18 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   userRole = '';
   username = '';
 
   constructor(
     private keycloakService: KeycloakServiceService,
     private userService: UserService,
-    private router: Router
-  ) {
+    private router: Router,
+    public roleService: RoleService
+  ) {}
+
+  ngOnInit() {
     this.initializeUserData();
   }
 
@@ -31,13 +35,9 @@ export class DashboardComponent {
       try {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
         this.username = tokenData.preferred_username;
-        
-        // Check if user has COACH role in lms resource
-        if (tokenData.resource_access?.lms?.roles?.includes('COACH')) {
-          this.userRole = 'coach';
-        } else {
-          this.userRole = 'student';
-        }
+        this.roleService.userRole$.subscribe(role => {
+          this.userRole = role;
+        });
       } catch (error) {
         console.error('Error parsing token:', error);
       }
