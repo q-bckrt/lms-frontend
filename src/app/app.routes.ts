@@ -14,6 +14,7 @@ import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.co
 import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
 import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
+import { roleGuard } from './guards/role-guard.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,10 +25,10 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'class', component: ClassComponent },
-  { path: 'create-course', component: CreateCourseComponent },
-  { path: 'create-class', component: CreateClassComponent },
-  { path: 'create-module', component: CreateModuleComponent },
-  { path: 'create-codelab', component: CreateCodelabComponent },
+  { path: 'create-course', component: CreateCourseComponent, canActivate: [roleGuard], data: { role: 'coach' } },
+  { path: 'create-class', component: CreateClassComponent, canActivate: [roleGuard], data: { role: 'coach' } },
+  { path: 'create-module', component: CreateModuleComponent, canActivate: [roleGuard], data: { role: 'coach' } },
+  { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
   { path: 'modules', component: ModulesOverviewComponent },
   { path: 'codelabs', component: CodelabsOverviewComponent }

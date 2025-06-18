@@ -58,4 +58,8 @@ export class RoleService {
   getCurrentRole(): string {
     return this.userRole.value;
   }
+
+  hasRole(role: string): boolean {
+    return this.userRole.value === role;
+  }
 }

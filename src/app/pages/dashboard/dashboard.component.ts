@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ButtonComponent } from '../../components/button/button.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { UserService } from '../../services/user-service.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { RoleService } from '../../services/role-service.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavbarComponent, FooterComponent, ButtonComponent, NgIf, NgFor],
+  imports: [NavbarComponent, FooterComponent, ButtonComponent, NgIf ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
