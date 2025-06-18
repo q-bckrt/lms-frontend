@@ -24,7 +24,6 @@ export class LoginComponent {
     const username = (document.getElementById('username') as HTMLInputElement).value.trim();
     const password = (document.getElementById('password') as HTMLInputElement).value.trim();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const spaceRegex = /\s/;
 
     if (!username || !password) {
