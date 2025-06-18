@@ -21,13 +21,13 @@ export class LoginComponent {
   ) {}
 
   handleLogin() {
-    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const username = (document.getElementById('username') as HTMLInputElement).value.trim();
     const password = (document.getElementById('password') as HTMLInputElement).value.trim();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const spaceRegex = /\s/;
 
-    if (!email || !password) {
+    if (!username || !password) {
       alert('Please enter both email and password');
       return;
     }
@@ -38,7 +38,7 @@ export class LoginComponent {
     }
 
     const loginData = {
-      username: email,
+      username: username,
       password: password
     };
 
