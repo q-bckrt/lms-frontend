@@ -26,6 +26,11 @@ export class ClassService {
     return this.http.post(`${this.apiUrl}/${coachUserName}`,body, {headers})
   }
 
+  getClassOverView(userName: string): Observable<any> {
+    const headers = this.getHeaders()
+    return this.http.get(`${this.apiUrl}/${userName}/class-overview`,{headers})
+  }
+
   linkCourseToClass(classId: number, courseId: number): Observable<any> {
     const headers = this.getHeaders()
     return this.http.put(`${this.apiUrl}/linkCourseClass/${classId}/${courseId}`,{},{headers})

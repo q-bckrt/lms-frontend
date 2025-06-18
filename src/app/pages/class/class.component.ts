@@ -15,7 +15,6 @@ import {NgFor} from '@angular/common';
 })
 export class ClassComponent {
 
-
   classInfo = {
     name: 'July java',
     coach: 'Carter',
