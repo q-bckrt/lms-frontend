@@ -3,84 +3,59 @@
     <app-navbar></app-navbar>
     <div class="content">
       <div class="edit-box">
-
         <div style="text-align: right;">
-          <h1>Username</h1>
+          <h1>{{ username }}</h1>
         </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="displayName" class="form-label">Display Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="displayName"
-              name="displayName"
-              placeholder="Enter display name"
-              autocomplete="name"
-              required
-            >
+        <form (ngSubmit)="handleSave()" #editForm="ngForm">
+
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <label for="displayName" class="form-label">Display Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="displayName"
+                name="displayName"
+                [(ngModel)]="formData.displayName"
+                required
+              >
+            </div>
           </div>
-        </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              name="email"
-              placeholder="Enter email"
-              autocomplete="email"
-              required
-            >
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <label for="password" class="form-label">New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="formData.password"
+                autocomplete="new-password"
+              >
+            </div>
           </div>
-        </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="classSelect" class="form-label">Class</label>
-            <select id="classSelect" class="form-select" required>
-              <option value="july">July class</option>
-              <option value="august">August class</option>
-              <option value="september">September class</option>
-            </select>
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <label for="confirmPassword" class="form-label">Confirm New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                [(ngModel)]="formData.confirmPassword"
+                autocomplete="new-password"
+              >
+            </div>
           </div>
-        </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              placeholder="Enter new password"
-              autocomplete="new-password"
-            >
+          <div class="save-button">
+            <app-button id="editProfileButton" text="Save" type="submit"></app-button>
           </div>
-        </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Repeat new password"
-              autocomplete="new-password"
-            >
-          </div>
-        </div>
-
-        <div class="save-button">
-          <app-button id="editProfileButton" text="Save"></app-button>
-        </div>
-
+        </form>
       </div>
     </div>
     <app-footer></app-footer>
