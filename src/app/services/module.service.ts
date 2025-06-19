@@ -17,7 +17,6 @@ export class ModuleService {
   // Later we should make sure it's added to a course immediately after creation
   createModule(module: { title: string }): Observable<any> {
 
-    console.log("Creating module with title:", module.title);
 
     return this.http.post('http://localhost:8080/modules', module);
   }

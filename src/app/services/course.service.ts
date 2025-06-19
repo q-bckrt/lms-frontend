@@ -22,4 +22,8 @@ export class CourseService {
 
     return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/courses');
   }
+
+  addModuleToCourse(courseId: number, moduleId: number): Observable<any> {
+    return this.http.put(`http://localhost:8080/courses/${courseId}/modules/${moduleId}`, {});
+  }
 }
