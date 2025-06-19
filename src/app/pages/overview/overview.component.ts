@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {CommonModule} from '@angular/common';
-import {AuthService} from '../../services/auth-service.service';
+import { RoleService } from '../../services/role-service.service';
 
 @Component({
   selector: 'app-overview',
@@ -16,12 +16,26 @@ import {AuthService} from '../../services/auth-service.service';
 })
 export class OverviewComponent {
   userRole: 'student' | 'coach' = 'student'; // default
-  username = 'JDoe';
+  username = '';
 
-  constructor(private authService: AuthService) {
-    const userData = JSON.parse(localStorage.getItem('user') || '{}')
-    this.userRole = userData.role
-    this.username = userData.username
+  constructor(public roleService: RoleService) {}
+
+  ngOnInit(): void {
+    this.roleService.userRole$.subscribe(role => {
+      if (role === 'coach' || role === 'student') {
+        this.userRole = role;
+      }
+    });
+
+    const token = sessionStorage.getItem('TOKEN_KEY_NAME');
+    if (token) {
+      try {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        this.username = tokenData.preferred_username;
+      } catch (e) {
+        console.error('Failed to parse token', e);
+      }
+    }
   }
 
   cards = [
