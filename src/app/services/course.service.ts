@@ -17,4 +17,9 @@ export class CourseService {
 
     return this.http.post('http://localhost:8080/courses', course);
   }
+
+  getAllCourses(): Observable<Array<{ id: number; title: string }>> {
+
+    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/courses');
+  }
 }

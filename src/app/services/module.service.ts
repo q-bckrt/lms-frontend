@@ -21,4 +21,8 @@ export class ModuleService {
 
     return this.http.post('http://localhost:8080/modules', module);
   }
+
+  getAllModules(): Observable<Array<{ id: number; title: string }>> {
+    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/modules');
+  }
 }
