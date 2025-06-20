@@ -4,6 +4,6 @@ export interface classOverviewModel {
   id: number;
   title: string;
   courseTitle: string;
-  coaches: string[];
-  students: string[];
+  coaches: userModel[];
+  students: userModel[];
 }

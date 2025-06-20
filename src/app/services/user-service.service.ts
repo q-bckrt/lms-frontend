@@ -25,11 +25,19 @@ export class UserService {
         responseList.map(response => {
           const coaches = response.users
             .filter((user: any) => user.role === 'COACH')
-            .map((user: any) => user.displayName);
+            .map((user: any) => ({
+              userName: user.userName,
+              displayName: user.displayName,
+              role: user.role
+            }));
 
           const students = response.users
             .filter((user: any) => user.role === 'STUDENT')
-            .map((user: any) => user.displayName);
+            .map((user: any) => ({
+              userName: user.userName,
+              displayName: user.displayName,
+              role: user.role
+            }));
 
           return {
             id: response.id,

@@ -1,71 +1,43 @@
-<!--<main>-->
-<!--  <div class="class-page">-->
-<!--    <app-navbar></app-navbar>-->
-
-
-<!--    <div *ngFor="let classOverview of classOverviews" class="mb-5">-->
-<!--    <div class="content container mt-4">-->
-<!--      <h2>Class: {{ classOverview.title }}</h2>-->
-<!--      <h2>Course: {{ classOverview.courseTitle }}</h2>-->
-
-
-<!--      <h4 class="mt-4">coaches</h4>-->
-<!--      <ul class="list-group">-->
-<!--        <li class="list-group-item" *ngFor="let coach of classOverview.coaches  ">-->
-<!--          {{ coach }}-->
-<!--        </li>-->
-<!--      </ul>-->
-
-
-<!--      <h4 class="mt-4">students</h4>-->
-<!--      <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>-->
-<!--      <ul class="list-group">-->
-<!--        <li class="list-group-item" *ngFor="let student of classOverview.students  ">-->
-<!--          {{ student }}-->
-<!--        </li>-->
-<!--      </ul>-->
-
-<!--    </div>-->
-<!--    </div>-->
-
-<!--    <app-footer></app-footer>-->
-<!--  </div>-->
-<!--</main>-->
-
 <main>
   <div class="class-page">
     <app-navbar></app-navbar>
 
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-6 mb-4" *ngFor="let classOverview of classOverviews">
-          <div class="card p-3 h-100">
-            <h4>Class: {{ classOverview.title }}</h4>
-            <h5>Course: {{ classOverview.courseTitle }}</h5>
+    <div *ngIf="selectedClassOverview===null" class="container mt-4">
+      <div class="badge bg-danger p-2 fs-2">
+        You are not enrolled in any classes
+      </div>
+    </div>
 
-            <div class="row mt-2">
-              <div class="col-6">
-                <h6>Coaches</h6>
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let coach of classOverview.coaches">
-                    {{ coach }}
-                  </li>
-                </ul>
-              </div>
+    <div *ngIf="selectedClassOverview as classOverview" class="container mt-4">
+    <div class="content container mt-4">
+      <div class="badge bg-primary p-2 fs-2">
+        {{ classOverview.title }}: {{ classOverview.courseTitle }}
+      </div>
 
-              <div class="col-6">
-                <h6>Students</h6>
-                <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let student of classOverview.students">
-                    {{ student }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+
+
+      <!-- Coaches -->
+      <h4 class="mt-4">Coaches</h4>
+      <div class="d-flex flex-wrap gap-2">
+        <div class="badge bg-dark-subtle p-2 fs-6" *ngFor="let coach of classOverview.coaches">
+          {{ coach.displayName }}
         </div>
       </div>
+
+      <h4 class="mt-4">students</h4>
+      <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let student of classOverview.students">
+          <span>{{ student.displayName }}</span>
+
+          <div *ngIf="roleService.isCoach()" class="ms-2">
+            <app-button text="View Profile" (clicked)="goTo('view-profile/' + student.userName)" class="btn-sm"></app-button>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
     </div>
 
   </div>

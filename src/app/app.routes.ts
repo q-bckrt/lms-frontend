@@ -15,6 +15,7 @@ import { CoursesOverviewComponent } from './pages/courses-overview/courses-overv
 import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
+import {ViewProfileComponent} from './pages/view-profile/view-profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,12 +25,17 @@ export const routes: Routes = [
   { path: 'edit', component: EditComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'overview', component: OverviewComponent },
-  { path: 'class', component: ClassComponent },
+  //{ path: 'class', component: ClassComponent },
   { path: 'create-course', component: CreateCourseComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-class', component: CreateClassComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-module', component: CreateModuleComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
   { path: 'modules', component: ModulesOverviewComponent },
-  { path: 'codelabs', component: CodelabsOverviewComponent }
+  { path: 'codelabs', component: CodelabsOverviewComponent },
+
+  // FROM DASHBOARD TO 'class-overview/:id' --> SELECTED ID NEEDS TO BE PUT IN THIS ROUTE
+  { path: 'class-overview/:id', component: ClassComponent},
+  // FROM CLASS OVERVIEW PASS ON USERNAME TO VIEW USER PROFILE AS COACH
+  { path: 'view-profile/:userName', component: ViewProfileComponent, canActivate: [roleGuard], data: { role: 'coach' } }
 ];
