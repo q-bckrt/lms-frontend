@@ -22,28 +22,43 @@
 
         <div class="card bg-light mb-3">
           <div class="card-body">
-            <p class="card-text">{{ classes?.[0]?.title || 'No assigned classes' }}</p>
+            <p class="card-text">
+              <ng-container *ngIf="classes?.length; else noClass">
+                <span *ngFor="let cls of classes; let last = last">
+                  {{ cls.title }}<span *ngIf="!last">, </span>
+                </span>
+              </ng-container>
+              <ng-template #noClass>No assigned classes</ng-template>
+            </p>
           </div>
         </div>
 
-        <div class="card bg-light mb-3">
-          <div class="card-body">
-            <label for="classSelect">Select Class:</label>
-            <select id="classSelect" [(ngModel)]="selectedClassId" class="form-control">
-              <option [ngValue]="null">-- Select a class --</option>
-              <option *ngFor="let cls of availableClasses" [value]="cls.id">
-                {{ cls.title }}
-              </option>
-            </select>
-            <button class="btn btn-primary mt-2" (click)="onSaveClassAssignment()">Save Class</button>
-          </div>
-        </div>
+        <ng-container *ngIf="ready">
 
+          <div class="card bg-light mb-3" *ngIf="role === 'coach' || (role === 'student' && classes.length === 0)">
+            <div class="card-body">
+              <label for="classSelect">Select Class:</label>
+              <select id="classSelect" [(ngModel)]="selectedClassId" class="form-control">
+                <option [ngValue]="null">-- Select a class --</option>
+                <option *ngFor="let cls of availableClasses" [value]="cls.id">
+                  {{ cls.title }}
+                </option>
+              </select>
+              <button class="btn btn-primary mt-2" (click)="onSaveClassAssignment()">Save Class</button>
+            </div>
+          </div>
+
+          <!-- <div class="card bg-light mb-3" *ngIf="role === 'student' && classes.length > 0">
+            <div class="card-body">
+              <p class="card-text text-muted">You are already assigned to a class.</p>
+            </div>
+          </div> -->
+
+        </ng-container>
 
         <div class="edit-button">
           <app-button id="editProfileButton" text="Edit" (click)="goToEdit()"></app-button>
         </div>
-
       </div>
     </div>
     <app-footer></app-footer>

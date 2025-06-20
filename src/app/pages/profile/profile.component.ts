@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { UserService } from '../../services/user-service.service';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
+import { RoleService } from '../../services/role-service.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     NavbarComponent,
     ButtonComponent,
@@ -29,10 +31,14 @@ export class ProfileComponent implements OnInit {
   availableClasses: any[] = [];
   selectedClassId: number | null = null;
 
+  role: string = '';
+  ready = false;
+
   constructor(
     private userService: UserService,
     private router: Router,
-    private keycloakService: KeycloakServiceService
+    private keycloakService: KeycloakServiceService,
+    private roleService: RoleService
   ) {}
 
   ngOnInit() {
@@ -52,23 +58,27 @@ export class ProfileComponent implements OnInit {
 
     this.username = username;
 
-    this.userService.getUserProfile(username).subscribe({
-      next: (user) => {
-        this.username = user.userName;
-        this.displayName = user.displayName;
-        this.email = user.email;
-        this.classes = user.classes;
+    this.roleService.userRole$.subscribe(role => {
+      this.role = role;
 
-        this.selectedClassId = user.classes?.[0]?.id || null;
-      },
-      error: (err) => {
-        console.error('Failed to load user profile:', err);
-      }
+      this.userService.getUserProfile(username).subscribe({
+        next: (user) => {
+          this.username = user.userName;
+          this.displayName = user.displayName;
+          this.email = user.email;
+          this.classes = user.classes;
+          // this.selectedClassId = user.classes?.[0]?.id || null;
+
+          this.ready = true;
+        },
+        error: (err) => {
+          console.error('Failed to load user profile:', err);
+        }
+      });
     });
 
     this.userService.getAllClasses().subscribe({
       next: (classes) => {
-        console.log('Fetched classes:', classes);
         this.availableClasses = classes;
       },
       error: (err) => {
@@ -77,15 +87,19 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+
+
   onSaveClassAssignment() {
     if (this.selectedClassId !== null) {
       this.userService.assignClassToUser(this.username, this.selectedClassId).subscribe({
         next: (res) => {
           console.log('Class assigned:', res);
+          alert('Class assigned successfully!');
           this.classes = res.classes;
         },
         error: (err) => {
           console.error('Failed to assign class:', err);
+          alert('Failed to assign class. Please try again.')
         }
       });
     }
