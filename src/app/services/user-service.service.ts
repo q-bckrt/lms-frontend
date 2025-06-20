@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
+import {classOverviewModel} from '../models/classOverviewModel';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,28 @@ export class UserService {
     return this.http.put(`${this.apiUrl}/${username}/edit`, updatedData);
   }
 
-  getClassOverview(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${username}/class-overview`)
+  getClassOverviews(userName: string): Observable<classOverviewModel[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${userName}/class-overview`).pipe(
+      map(responseList =>
+        responseList.map(response => {
+          const coaches = response.users
+            .filter((user: any) => user.role === 'COACH')
+            .map((user: any) => user.displayName);
+
+          const students = response.users
+            .filter((user: any) => user.role === 'STUDENT')
+            .map((user: any) => user.displayName);
+
+          return {
+            id: response.id,
+            title: response.title,
+            courseTitle: response.course?.title ?? 'No course assigned',
+            coaches,
+            students
+          };
+        })
+      )
+    );
   }
+
 }

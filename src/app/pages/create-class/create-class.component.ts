@@ -21,8 +21,6 @@ export class CreateClassComponent {
   roleService = inject(RoleService);
   router = inject(Router);
 
-  //userName: string = this.keycloakService.getTokenUserName()
-
   private validateTitle(title: string): boolean {
     if (!title.trim()) {
       return false

@@ -1,20 +1,73 @@
+<!--<main>-->
+<!--  <div class="class-page">-->
+<!--    <app-navbar></app-navbar>-->
+
+
+<!--    <div *ngFor="let classOverview of classOverviews" class="mb-5">-->
+<!--    <div class="content container mt-4">-->
+<!--      <h2>Class: {{ classOverview.title }}</h2>-->
+<!--      <h2>Course: {{ classOverview.courseTitle }}</h2>-->
+
+
+<!--      <h4 class="mt-4">coaches</h4>-->
+<!--      <ul class="list-group">-->
+<!--        <li class="list-group-item" *ngFor="let coach of classOverview.coaches  ">-->
+<!--          {{ coach }}-->
+<!--        </li>-->
+<!--      </ul>-->
+
+
+<!--      <h4 class="mt-4">students</h4>-->
+<!--      <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>-->
+<!--      <ul class="list-group">-->
+<!--        <li class="list-group-item" *ngFor="let student of classOverview.students  ">-->
+<!--          {{ student }}-->
+<!--        </li>-->
+<!--      </ul>-->
+
+<!--    </div>-->
+<!--    </div>-->
+
+<!--    <app-footer></app-footer>-->
+<!--  </div>-->
+<!--</main>-->
+
 <main>
   <div class="class-page">
     <app-navbar></app-navbar>
 
-    <div class="content container mt-4">
-      <h2>Class: {{ classInfo.name }}</h2>
-      <p><strong>Coach:</strong> {{ classInfo.coach }}</p>
-      <p><strong>Number of Students:</strong> {{ classInfo.members.length }}</p>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6 mb-4" *ngFor="let classOverview of classOverviews">
+          <div class="card p-3 h-100">
+            <h4>Class: {{ classOverview.title }}</h4>
+            <h5>Course: {{ classOverview.courseTitle }}</h5>
 
-      <h4 class="mt-4">Class Members</h4>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let member of classInfo.members">
-          {{ member }}
-        </li>
-      </ul>
+            <div class="row mt-2">
+              <div class="col-6">
+                <h6>Coaches</h6>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let coach of classOverview.coaches">
+                    {{ coach }}
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-6">
+                <h6>Students</h6>
+                <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let student of classOverview.students">
+                    {{ student }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <app-footer></app-footer>
   </div>
+  <app-footer></app-footer>
 </main>
