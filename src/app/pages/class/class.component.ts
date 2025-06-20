@@ -31,6 +31,7 @@
     classId: number = 0;
     classOverviews: classOverviewModel[] = [];
     selectedClassOverview: classOverviewModel | null = null;
+    loading: boolean = true;
 
     ngOnInit() {
       const userName = this.keycloakService.getTokenUserName()
@@ -42,9 +43,12 @@
           console.log("class overview list is set")
           this.selectClass(this.classId)
           console.log("class is selected")
+          this.loading = false;
         },
         error: (err) => {
           console.error('Failed to fetch class overview list:', err);
+          this.loading = false;
+
         }
       });
 

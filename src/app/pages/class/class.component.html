@@ -2,7 +2,7 @@
   <div class="class-page">
     <app-navbar></app-navbar>
 
-    <div *ngIf="selectedClassOverview===null" class="container mt-4">
+    <div *ngIf="!loading && selectedClassOverview === null" class="container mt-4">
       <div class="badge bg-danger p-2 fs-2">
         You are not enrolled in any classes
       </div>
