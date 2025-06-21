@@ -23,6 +23,10 @@ export class CourseService {
     return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/courses');
   }
 
+  getOneCourse(id: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/courses/${id}`);
+  }
+
   addModuleToCourse(courseId: number, moduleId: number): Observable<any> {
     return this.http.put(`http://localhost:8080/courses/${courseId}/modules/${moduleId}`, {});
   }
