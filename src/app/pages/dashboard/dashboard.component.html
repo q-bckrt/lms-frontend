@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
   <div class="content w-100 px-4">
 
-    <h2 class="mb-4">Welcome, {{ username }}.</h2>
+    <h2 class="mb-4 fs-1 fw-bold">Welcome, {{ username }}.</h2>
 
     <div *ngIf="roleService.isCoach()">
       <!--
@@ -23,7 +23,7 @@
       <div class="accordion w-100" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               My Classes
             </button>
           </h2>
@@ -32,12 +32,23 @@
               <div class="d-flex flex-wrap w-100">
                 <div class="p-2" style="flex: 0 0 25%; max-width: 25%;">
                   <div class="card border-primary h-100">
-                    <div class="card-header">Header</div>
+                    <div class="card-header">Class</div>
                     <div class="card-body">
-                      <h4 class="card-title">Primary card title</h4>
-                      <p class="card-text">
-                        Some quick example text to build on the card title…
-                      </p>
+                      <h4 class="card-title">Class Name</h4>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">View</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-2" style="flex: 0 0 25%; max-width: 25%;">
+                  <div class="card border-primary h-100">
+                    <div class="card-header">Class</div>
+                    <div class="card-body">
+                      <h4 class="card-title">Class Name</h4>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">View</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -47,14 +58,14 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               All Courses
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <div class="row">
-                <div *ngFor="let course of courses" class="col-md-3 mb-3">
+            <div class="accordion-body px-0">
+              <div class="d-flex flex-wrap w-100">
+                <div *ngFor="let course of courses" class="p-2" style="flex: 0 0 25%; max-width: 25%;">
                   <div class="card border-primary h-100">
                     <div class="card-header">Course</div>
                     <div class="card-body">

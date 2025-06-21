@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // What is the way of getting the first and last name of the user?
   private initializeUserData() {
     const token = this.keycloakService.getToken();
     if (token) {
