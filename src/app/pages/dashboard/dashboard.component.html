@@ -71,7 +71,9 @@
                     <div class="card-body">
                       <h4 class="card-title">{{ course.title }}</h4>
                       <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">View</button>
+                        <button type="button" class="btn btn-primary" (click)="goTo('/modules/' + course.id)">
+                          View
+                        </button>
                       </div>
                     </div>
                   </div>

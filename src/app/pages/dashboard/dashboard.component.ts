@@ -5,13 +5,13 @@ import { ButtonComponent } from '../../components/button/button.component';
 import {NgForOf, NgIf} from '@angular/common';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { UserService } from '../../services/user-service.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { RoleService } from '../../services/role-service.service';
 import {CourseService} from '../../services/course.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavbarComponent, FooterComponent, ButtonComponent, NgIf, NgForOf],
+  imports: [NavbarComponent, FooterComponent, ButtonComponent, NgIf, NgForOf, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

@@ -16,6 +16,7 @@ import { ModulesOverviewComponent } from './pages/modules-overview/modules-overv
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
 
+// Following the refactoring of the structure, those route names should be updated too after consulting with the team.
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -30,6 +31,6 @@ export const routes: Routes = [
   { path: 'create-module', component: CreateModuleComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
-  { path: 'modules', component: ModulesOverviewComponent },
+  { path: 'modules/:id', component: ModulesOverviewComponent },
   { path: 'codelabs', component: CodelabsOverviewComponent }
 ];
