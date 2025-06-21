@@ -3,11 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { KeycloakServiceService} from './keycloak/keycloak-service.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class ModuleService {
+export class SubmoduleService {
 
   constructor(
     private http: HttpClient,
@@ -16,16 +15,11 @@ export class ModuleService {
 
   // Later we should make sure it's added to a course immediately after creation
   createModule(module: { title: string }): Observable<any> {
-
-
-    return this.http.post('http://localhost:8080/modules', module);
+    return this.http.post('http://localhost:8080/submodules', module);
   }
 
-  getAllModules(): Observable<Array<{ id: number; title: string }>> {
-    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/modules');
+  getAllSubmodules(): Observable<Array<{ id: number; title: string }>> {
+    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/submodules');
   }
 
-  getOneModule(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/modules/${id}`);
-  }
 }

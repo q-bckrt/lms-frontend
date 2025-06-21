@@ -13,6 +13,7 @@ import { CreateModuleComponent } from './pages/create-module/create-module.compo
 import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.component';
 import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
 import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
+import { SubmodulesOverviewComponent } from './pages/submodules-overview/submodules-overview.component';
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
 
@@ -32,5 +33,6 @@ export const routes: Routes = [
   { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
   { path: 'modules/:id', component: ModulesOverviewComponent },
+  { path: 'submodules/:id', component: SubmodulesOverviewComponent },
   { path: 'codelabs', component: CodelabsOverviewComponent }
 ];
