@@ -8,19 +8,22 @@ import {ModuleService} from '../../services/module.service';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
+import {FormsModule} from '@angular/forms';
 
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-modules-overview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor],
+  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule],
   templateUrl: './modules-overview.component.html',
   styleUrl: './modules-overview.component.css'
 })
 export class ModulesOverviewComponent implements OnInit {
   modules: Array<{ id: number; title: string }> = [];
   courseId!: number;
-  courseTitle: string = 'Course Title'; // Placeholder for course title, can be set dynamically
+  courseTitle: string = '';
+  editedCourseTitle: string = '';
 
   constructor(
     private router: Router,
@@ -48,6 +51,17 @@ export class ModulesOverviewComponent implements OnInit {
 
   }
 
+  handleUpdateCourseTitle() {
+    this.courseService.updateCourseTitle(this.courseId, { title: this.editedCourseTitle }).subscribe(() => {
+      this.courseTitle = this.editedCourseTitle;
+
+      const modalEl = document.getElementById('editCourseModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+
+      console.log('Course title updated');
+    })
+  }
 
   goTo(path: string) {
     console.log('Button clicked');

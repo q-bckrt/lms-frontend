@@ -17,7 +17,7 @@ import {CourseService} from '../../services/course.service';
 })
 export class DashboardComponent implements OnInit {
   userRole = '';
-  username = '';
+  firstName = '';
   courses: Array<{ id: number; title: string }> = [];
 
 
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       try {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
-        this.username = tokenData.preferred_username;
+        this.firstName = tokenData.given_name || '';
         this.roleService.userRole$.subscribe(role => {
           this.userRole = role;
         });

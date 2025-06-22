@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
   <div class="content w-100 px-4">
 
-    <h2 class="mb-4 fs-1 fw-bold">Welcome, {{ username }}.</h2>
+    <h2 class="mb-4 fs-1 fw-bold">Welcome, {{ firstName }}.</h2>
 
     <div *ngIf="roleService.isCoach()">
       <div class="accordion w-100" id="accordionExample">
@@ -17,22 +17,46 @@
               <div class="d-flex flex-wrap w-100">
                 <div class="p-2" style="flex: 0 0 25%; max-width: 25%;">
                   <div class="card border-primary h-100">
-                    <div class="card-header">Class</div>
+                    <div class="card-header d-flex align-items-center bg-light">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                        <path d="M10 14L10 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 14L14 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 10L5 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 10L19 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 21H21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 7.00005L12 2.99994" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5.00001 7.00011L12 3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <strong class="text-body-secondary">Class</strong>
+                    </div>
                     <div class="card-body">
-                      <h4 class="card-title">Class Name</h4>
+                      <h4 class="card-title">Class One</h4>
                       <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">View</button>
+                        <button type="button" class="btn btn-primary">Open</button>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="p-2" style="flex: 0 0 25%; max-width: 25%;">
                   <div class="card border-primary h-100">
-                    <div class="card-header">Class</div>
+                    <div class="card-header d-flex align-items-center bg-light">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                        <path d="M10 14L10 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 14L14 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 10L5 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 10L19 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 21H21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 10H21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 7.00005L12 2.99994" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5.00001 7.00011L12 3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <strong class="text-body-secondary">Class</strong>
+                    </div>
                     <div class="card-body">
-                      <h4 class="card-title">Class Name</h4>
+                      <h4 class="card-title">Class Two</h4>
                       <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">View</button>
+                        <button type="button" class="btn btn-primary">Open</button>
                       </div>
                     </div>
                   </div>
@@ -52,12 +76,18 @@
               <div class="d-flex flex-wrap w-100">
                 <div *ngFor="let course of courses" class="p-2" style="flex: 0 0 25%; max-width: 25%;">
                   <div class="card border-primary h-100">
-                    <div class="card-header">Course</div>
+                    <div class="card-header d-flex align-items-center bg-light">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                        <path d="M20 12V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V18.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M13 2V14L16.8182 11L20 14V5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                     <strong class="text-body-secondary">Course</strong>
+                    </div>
                     <div class="card-body">
                       <h4 class="card-title">{{ course.title }}</h4>
                       <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-primary" (click)="goTo('/modules/' + course.id)">
-                          View
+                          Open
                         </button>
                       </div>
                     </div>
@@ -81,3 +111,4 @@
   </div>
   <app-footer></app-footer>
 </main>
+

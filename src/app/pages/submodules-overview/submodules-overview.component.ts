@@ -5,22 +5,25 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NgFor } from '@angular/common';
 import {ModuleService} from '../../services/module.service';
-import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
 import {SubmoduleService} from '../../services/submodule.service';
+import {FormsModule} from '@angular/forms';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-submodules-overview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor],
+  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule],
   templateUrl: './submodules-overview.component.html',
   styleUrl: './submodules-overview.component.css'
 })
 export class SubmodulesOverviewComponent implements OnInit {
   submodules: Array<{ id: number; title: string }> = [];
   moduleId!: number;
-  moduleTitle: string = 'Course Title'; // Placeholder for course title, can be set dynamically
+  moduleTitle: string = '';
+  editedModuleTitle: string = '';
 
   constructor(
     private router: Router,
@@ -49,6 +52,17 @@ export class SubmodulesOverviewComponent implements OnInit {
 
   }
 
+  handleUpdateModuleTitle() {
+    this.moduleService.updateModuleTitle(this.moduleId, { title: this.editedModuleTitle }).subscribe(() => {
+      this.moduleTitle = this.editedModuleTitle;
+
+      const modalEl = document.getElementById('editModuleModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+
+      console.log("Module title updated");
+    });
+  }
 
   goTo(path: string) {
     console.log('Button clicked');
