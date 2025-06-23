@@ -78,9 +78,6 @@ export class ModulesOverviewComponent implements OnInit {
       const modalEl = document.getElementById('createModuleModal');
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
-      // should navigate to the new module's overview page ???
-      // this.router.navigate(['/modules', response.id]);
-
     })
   }
 

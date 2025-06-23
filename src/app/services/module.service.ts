@@ -32,4 +32,8 @@ export class ModuleService {
   updateModuleTitle(moduleId: number, moduleInput: { title: string }): Observable<any> {
     return this.http.put(`http://localhost:8080/modules/${moduleId}`, moduleInput);
   }
+
+  addSubmoduleToModule(moduleId: number, submoduleId: number): Observable<any> {
+    return this.http.put(`http://localhost:8080/modules/${moduleId}/submodules/${submoduleId}`, {});
+  }
 }

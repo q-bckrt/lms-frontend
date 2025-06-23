@@ -24,6 +24,7 @@ export class SubmodulesOverviewComponent implements OnInit {
   moduleId!: number;
   moduleTitle: string = '';
   editedModuleTitle: string = '';
+  newSubmoduleTitle: string = '';
 
   constructor(
     private router: Router,
@@ -43,13 +44,11 @@ export class SubmodulesOverviewComponent implements OnInit {
       console.log(allSubmodules);
       console.log(module.id);
       this.moduleTitle = module.title;
-      // filter down to only the modules linked to this course
+      // filter down to only the modules linked to this module
       this.submodules = allSubmodules.filter((sub: any) =>
         sub.parentModules.includes(module.id)
       );
     });
-
-
   }
 
   handleUpdateModuleTitle() {
@@ -61,6 +60,27 @@ export class SubmodulesOverviewComponent implements OnInit {
       modalInstance?.hide();
 
       console.log("Module title updated");
+    });
+  }
+
+  handleCreateNewSubmodule() {
+    this.subService.createSubmodule({title: this.newSubmoduleTitle}).subscribe((response) => {
+      console.log('New Submodule created:', response);
+
+      this.moduleService.addSubmoduleToModule(this.moduleId, response.id).subscribe(() => {
+
+        const modalEl = document.getElementById('createSubmoduleModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        modalInstance?.hide();
+
+        console.log("New submodule created");
+        // refresh the submodule list
+        this.subService.getAllSubmodules().subscribe(submodules => {
+          this.submodules = submodules.filter((sub: any) =>
+            sub.parentModules.includes(this.moduleId)
+          );
+        });
+      });
     });
   }
 

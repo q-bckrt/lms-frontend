@@ -14,7 +14,7 @@ export class SubmoduleService {
   ) { }
 
   // Later we should make sure it's added to a course immediately after creation
-  createModule(module: { title: string }): Observable<any> {
+  createSubmodule(module: { title: string }): Observable<any> {
     return this.http.post('http://localhost:8080/submodules', module);
   }
 
