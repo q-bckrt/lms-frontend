@@ -9,35 +9,61 @@
     </div>
 
     <div *ngIf="selectedClassOverview as classOverview" class="container mt-4">
-    <div class="content container mt-4">
-      <div class="badge bg-primary p-2 fs-2">
-        {{ classOverview.title }}: {{ classOverview.courseTitle }}
-      </div>
+      <div class="content container mt-4">
 
-
-
-      <!-- Coaches -->
-      <h4 class="mt-4">Coaches</h4>
-      <div class="d-flex flex-wrap gap-2">
-        <div class="badge bg-dark-subtle p-2 fs-6" *ngFor="let coach of classOverview.coaches">
-          {{ coach.displayName }}
+        <div class="badge bg-primary p-2 fs-2">
+          {{ classOverview.title }}
         </div>
-      </div>
 
-      <h4 class="mt-4">students</h4>
-      <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
-      <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let student of classOverview.students">
-          <span>{{ student.displayName }}</span>
+        <div class="d-flex align-items-center gap-2 mt-2">
+          <div class="badge bg-light p-1 fs-3">
+            {{ classOverview.courseTitle }}
+          </div>
+          <!--      CHECK IF CORREDCT ROUTE FOR COURSE PAGE-->
+          <button (click)="goTo('courses')" class="btn btn-primary btn-sm"> see course</button>
+        </div>
+
+
+        <!-- Coaches -->
+        <h4 class="mt-4">Coaches</h4>
+        <div class="d-flex flex-wrap gap-2">
+          <div class="badge bg-light p-2 fs-6" *ngFor="let coach of classOverview.coaches">
+            {{ coach.displayName }}
+          </div>
 
           <div *ngIf="roleService.isCoach()" class="ms-2">
-            <app-button text="View Profile" (clicked)="goTo('view-profile/' + student.userName)" class="btn-sm"></app-button>
+<!--            <app-button text='Link to course' (clicked)="linkCourse()" class="btn-sm"></app-button>-->
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+              <button type="button" class="btn btn-primary">Primary</button>
+              <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" href="#">Dropdown link</a>
+                  <a class="dropdown-item" href="#">Dropdown link</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </li>
 
-      </ul>
+          <h4 class="mt-4">SELECTED COURSE</h4>
 
-    </div>
+        </div>
+
+        <h4 class="mt-4">students</h4>
+        <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let student of classOverview.students">
+
+            <div *ngIf="roleService.isCoach()" class="ms-2">
+              <app-button text='{{ student.displayName }}' (clicked)="goTo('view-profile/' + student.userName)"
+                          class="btn-sm"></app-button>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
     </div>
 
   </div>
