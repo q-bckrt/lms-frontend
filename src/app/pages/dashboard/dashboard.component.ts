@@ -8,6 +8,8 @@ import { UserService } from '../../services/user-service.service';
 import {Router, RouterLink} from '@angular/router';
 import { RoleService } from '../../services/role-service.service';
 import {CourseService} from '../../services/course.service';
+import {ClassService} from '../../services/class-service';
+import {classModel} from '../../models/classModel';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,7 @@ export class DashboardComponent implements OnInit {
   userRole = '';
   firstName = '';
   courses: Array<{ id: number; title: string }> = [];
+  classes: classModel[] = [];
 
 
   constructor(
@@ -26,11 +29,21 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public roleService: RoleService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private classService: ClassService
   ) {}
 
   ngOnInit() {
     this.initializeUserData();
+    this.classService.findAllClasses().subscribe({
+      next: (classes) => {
+        this.classes = classes;
+      },
+      error: (err) => {
+        console.error('Failed to load classes:', err);
+        alert('Failed to load classes. Please try again later.');
+      }
+    })
     this.courseService.getAllCourses().subscribe({
       next: (courses) => {
         this.courses = courses;
