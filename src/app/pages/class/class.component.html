@@ -27,14 +27,14 @@
           <ng-container>
             <div class="card bg-light mb-3">
               <div class="card-body">
-                <label for="classSelect">Select Class:</label>
+                <label for="classSelect">Set class course:</label>
                 <select id="classSelect" [(ngModel)]="selectedCourse" class="form-control">
-                  <option [ngValue]="null">-- Select a class --</option>
+                  <option [ngValue]="null">-- Select a course --</option>
                   <option *ngFor="let course of allCourses" [value]="course.id">
                     {{ course.title }}
                   </option>
                 </select>
-                <button class="btn btn-primary mt-2" (click)="linkCourse()">Save Class</button>
+                <button class="btn btn-primary mt-2" (click)="linkCourse()">Save to class</button>
               </div>
             </div>
           </ng-container>
@@ -52,18 +52,6 @@
 
         <h4 class="mt-4">students</h4>
         <p><strong>Number of Students:</strong> {{ classOverview.students.length }}</p>
-
-<!--        <ul class="list-group">-->
-<!--          <li class="list-group-item d-flex justify-content-between align-items-center"-->
-<!--              *ngFor="let student of classOverview.students">-->
-<!--            <h6 class="mt-2">{{ student.displayName }}</h6>-->
-
-<!--            <div *ngIf="isUserCoach" class="ms-0">-->
-<!--              <button (click)="goTo('view-profile/' + student.userName)"-->
-<!--                          class="btn btn-primary btn-"> see profile </button>-->
-<!--            </div>-->
-<!--          </li>-->
-<!--        </ul>-->
 
         <div class="student-grid">
           <div class="student-card" *ngFor="let student of classOverview.students">
