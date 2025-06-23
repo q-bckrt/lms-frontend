@@ -48,8 +48,6 @@ export class ModulesOverviewComponent implements OnInit {
         mod.parentCourses.includes(course.id)
       );
     });
-
-
   }
 
   handleUpdateCourseTitle() {
@@ -68,10 +66,20 @@ export class ModulesOverviewComponent implements OnInit {
     this.moduleService.createModule({ title: this.newModuleTitle }).subscribe((response) => {
       console.log('New module created:', response);
 
+    this.courseService.addModuleToCourse(this.courseId, response.id).subscribe(() => {
+      console.log('Module added to course');
+      // refresh the module list
+      this.moduleService.getAllModules().subscribe(modules => {
+        this.modules = modules.filter((mod: any) =>
+          mod.parentCourses.includes(this.courseId)
+        );
+      });
+    })
       const modalEl = document.getElementById('createModuleModal');
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
       // should navigate to the new module's overview page ???
+      // this.router.navigate(['/modules', response.id]);
 
     })
   }
