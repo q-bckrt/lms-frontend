@@ -46,8 +46,8 @@ export const routes: Routes = [
   // FROM DASHBOARD TO 'class-overview/:id' --> SELECTED ID NEEDS TO BE PUT IN THIS ROUTE
   { path: 'class-overview/:id', component: ClassComponent},
   // FROM CLASS OVERVIEW PASS ON USERNAME TO VIEW USER PROFILE AS COACH
-  { path: 'view-profile/:userName', component: ViewProfileComponent, canActivate: [roleGuard], data: { role: 'coach' } }
-  
+  { path: 'view-profile/:userName', component: ViewProfileComponent, canActivate: [roleGuard], data: { role: 'coach' } },
+
   { path: 'codelabs', component: CodelabsOverviewComponent },
   { path: 'codelabs/:id', component: CodelabComponent },
   { path: 'codelabs/:id/comment', component: CommentComponent}

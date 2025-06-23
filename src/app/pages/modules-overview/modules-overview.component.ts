@@ -24,6 +24,7 @@ export class ModulesOverviewComponent implements OnInit {
   courseId!: number;
   courseTitle: string = '';
   editedCourseTitle: string = '';
+  newModuleTitle: string = '';
 
   constructor(
     private router: Router,
@@ -60,6 +61,18 @@ export class ModulesOverviewComponent implements OnInit {
       modalInstance?.hide();
 
       console.log('Course title updated');
+    })
+  }
+
+  handleCreateNewModule() {
+    this.moduleService.createModule({ title: this.newModuleTitle }).subscribe((response) => {
+      console.log('New module created:', response);
+
+      const modalEl = document.getElementById('createModuleModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+      // should navigate to the new module's overview page ???
+
     })
   }
 
