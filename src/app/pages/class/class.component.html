@@ -54,9 +54,10 @@
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center"
               *ngFor="let student of classOverview.students">
+            <h6 class="mt-1">{{ student.displayName }}</h6>
 
             <div *ngIf="roleService.isCoach()" class="ms-2">
-              <app-button text='{{ student.displayName }}' (clicked)="goTo('view-profile/' + student.userName)"
+              <app-button text='see profile' (clicked)="goTo('view-profile/' + student.userName)"
                           class="btn-sm"></app-button>
             </div>
           </li>
