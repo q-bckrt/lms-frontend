@@ -10,34 +10,37 @@
 
         <div class="card bg-light mb-3">
           <div class="card-body">
+             <h5 class="card-title">Display Name</h5>
             <p class="card-text">{{ displayName }}</p>
           </div>
         </div>
 
         <div class="card bg-light mb-3">
           <div class="card-body">
+             <h5 class="card-title">Email</h5>
             <p class="card-text">{{ email }}</p>
           </div>
         </div>
 
         <div class="card bg-light mb-3">
           <div class="card-body">
-            <p class="card-text">
-              <ng-container *ngIf="classes?.length; else noClass">
-                <span *ngFor="let cls of classes; let last = last">
-                  {{ cls.title }}<span *ngIf="!last">, </span>
-                </span>
-              </ng-container>
-              <ng-template #noClass>No assigned classes</ng-template>
-            </p>
+            <ng-container *ngIf="classes?.length; else noClass">
+              <h5 class="card-title">Assigned Classes</h5>
+              <ul class="list-unstyled mb-0">
+                <li *ngFor="let cls of classes">{{ cls.title }}</li>
+              </ul>
+            </ng-container>
+            <ng-template #noClass>
+              <p class="card-text text-muted">No assigned classes</p>
+            </ng-template>
           </div>
         </div>
 
         <ng-container *ngIf="ready">
-
           <div class="card bg-light mb-3" *ngIf="role === 'coach' || (role === 'student' && classes.length === 0)">
             <div class="card-body">
-              <label for="classSelect">Select Class:</label>
+              <h5 class="card-title">Assign a Class</h5>
+              <label for="classSelect" class="form-label">Select a class to assign:</label>
               <select id="classSelect" [(ngModel)]="selectedClassId" class="form-control">
                 <option [ngValue]="null">-- Select a class --</option>
                 <option *ngFor="let cls of availableClasses" [value]="cls.id">
@@ -47,13 +50,6 @@
               <button class="btn btn-primary mt-2" (click)="onSaveClassAssignment()">Save Class</button>
             </div>
           </div>
-
-          <!-- <div class="card bg-light mb-3" *ngIf="role === 'student' && classes.length > 0">
-            <div class="card-body">
-              <p class="card-text text-muted">You are already assigned to a class.</p>
-            </div>
-          </div> -->
-
         </ng-container>
 
         <div class="edit-button">
