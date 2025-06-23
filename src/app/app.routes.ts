@@ -16,6 +16,7 @@ import { ModulesOverviewComponent } from './pages/modules-overview/modules-overv
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
 import {CodelabComponent} from './pages/codelab/codelab.component';
+import {CommentComponent} from './pages/comment/comment.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,5 +34,6 @@ export const routes: Routes = [
   { path: 'courses', component: CoursesOverviewComponent },
   { path: 'modules', component: ModulesOverviewComponent },
   { path: 'codelabs', component: CodelabsOverviewComponent },
-  { path: 'codelabs/:id', component: CodelabComponent }
+  { path: 'codelabs/:id', component: CodelabComponent },
+  { path: 'codelabs/:id/comment', component: CommentComponent}
 ];

@@ -13,7 +13,7 @@ import { formatDistanceToNow } from 'date-fns';
     NavbarComponent,
     FooterComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './codelab.component.html',
   styleUrl: './codelab.component.css'
@@ -24,7 +24,7 @@ export class CodelabComponent implements OnInit {
   comments: CodelabComment[] = [];
   error: string | null = null;
 
-  constructor(private codelabService: CodelabService, private route: ActivatedRoute) {}
+  constructor(private codelabService: CodelabService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -58,6 +58,10 @@ export class CodelabComponent implements OnInit {
 
   getRelativeTime(timestamp: string): string {
     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  }
+
+  goToCommentPage() {
+    this.router.navigate(['/codelabs', this.codelab?.id, 'comment']);
   }
 }
 
