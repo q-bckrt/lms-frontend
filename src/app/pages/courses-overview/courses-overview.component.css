@@ -8,7 +8,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
   padding: 20px;
+}
+
+.card,
+.card * {
+  writing-mode: horizontal-tb !important;
+  direction: ltr !important;
+  display: revert !important;
 }

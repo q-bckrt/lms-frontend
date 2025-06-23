@@ -5,20 +5,26 @@
       <div class="create-box">
         <form id="createForm">
           <div class="create-field">
-            <label for="name" class="form-label mt-4">Name</label>
+            <label for="title" class="form-label mt-4">Title</label>
             <input
               type="text"
               class="form-control"
-              id="name"
-              name="name"
-              placeholder="Enter name"
+              id="title"
+              name="title"
+              placeholder="Enter title"
               required
             >
           </div>
-          <div class="create-button">
-            <app-button id="saveButton" text="Save" (clicked)="handleCreate()"></app-button>
+          <div>
+            <label for="course" class="form-label mt-4">Course</label>
+            <select class="form-select" id="course" [(ngModel)]="selectedCourseId" name="course" required>
+              <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+            </select>
           </div>
         </form>
+        <div class="create-button">
+          <app-button id="saveButton" text="Save" (clicked)="handleCreateModule()"></app-button>
+        </div>
       </div>
     </div>
     <app-footer></app-footer>

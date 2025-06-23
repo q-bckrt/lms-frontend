@@ -13,10 +13,12 @@ import { CreateModuleComponent } from './pages/create-module/create-module.compo
 import { CreateCodelabComponent } from './pages/create-codelab/create-codelab.component';
 import { CoursesOverviewComponent } from './pages/courses-overview/courses-overview.component';
 import { ModulesOverviewComponent } from './pages/modules-overview/modules-overview.component';
+import { SubmodulesOverviewComponent } from './pages/submodules-overview/submodules-overview.component';
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
 import {ViewProfileComponent} from './pages/view-profile/view-profile.component';
 
+// Following the refactoring of the structure, those route names should be updated too after consulting with the team.
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -31,8 +33,13 @@ export const routes: Routes = [
   { path: 'create-module', component: CreateModuleComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
-  { path: 'modules', component: ModulesOverviewComponent },
+
+  { path: 'modules/:id', component: ModulesOverviewComponent },
+  { path: 'submodules/:id', component: SubmodulesOverviewComponent },
   { path: 'codelabs', component: CodelabsOverviewComponent },
+
+  { path: 'modules', component: ModulesOverviewComponent },
+
 
   // FROM DASHBOARD TO 'class-overview/:id' --> SELECTED ID NEEDS TO BE PUT IN THIS ROUTE
   { path: 'class-overview/:id', component: ClassComponent},

@@ -1,0 +1,73 @@
+<main class="overview-page">
+  <app-navbar></app-navbar>
+
+  <div class="content">
+    <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+      <h2 class="mb-0">
+        Submodules: <span class="text-body-secondary">{{ moduleTitle }}.</span>
+      </h2>
+      <div>
+        <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editModuleModal">Edit Module</button>
+        <button class="btn btn-success btn-lg m-2">Add Submodule</button>
+      </div>
+    </div>
+
+
+    <div class="container-fluid px-0">
+      <div class="row">
+        <div *ngFor="let submodule of submodules"
+             class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+
+          <div class="card border-primary h-100">
+            <div class="card-header d-flex align-items-center bg-light">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                <path d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <small class="text-muted">Lesson</small>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h4 class="card-title">{{ submodule.title }}</h4>
+              <div class="mt-auto text-end">
+                <button type="button"
+                        class="btn btn-primary"
+                        (click)="goTo('/codelabs/' + submodule.id)">
+                  Open
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal for editing module title -->
+  <div class="modal fade" id="editModuleModal" tabindex="-1" aria-labelledby="editModuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourseModalLabel">Edit Module Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <input
+            [(ngModel)]="editedModuleTitle"
+            class="form-control"
+            placeholder="Module title"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleUpdateModuleTitle()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</main>

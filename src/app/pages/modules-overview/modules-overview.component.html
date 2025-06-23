@@ -1,15 +1,78 @@
 <main class="overview-page">
   <app-navbar></app-navbar>
-  <div class="content">
-    <h2>Modules Overview</h2>
 
-    <div *ngFor="let module of modules" class="card bg-light mb-3 w-100">
-      <div class="card-body d-flex justify-content-between align-items-center">
-        <span>{{ module.name }}</span>
-        <app-button text="Edit" (clicked)="editModule(module.id)"></app-button>
+  <div class="content container-fluid px-4">
+      <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+        <h2 class="mb-0">
+          Modules: <span class="text-body-secondary">{{ courseTitle }}.</span>
+        </h2>
+        <div>
+          <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editCourseModal">Edit Course</button>
+          <button class="btn btn-success btn-lg m-2">Add Module</button>
+          <button class="btn btn-success btn-lg m-2">Create Module</button>
+        </div>
+      </div>
+
+
+
+    <div class="container-fluid px-0">
+      <div class="row">
+        <div *ngFor="let module of modules"
+             class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+
+          <div class="card border-primary h-100">
+            <div class="card-header d-flex align-items-center bg-light">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                <rect x="3" y="3" width="9" height="9" rx="1" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <rect x="16" y="16" width="5" height="5" rx="0.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <rect x="16" y="7" width="5" height="5" rx="0.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <rect x="7" y="16" width="5" height="5" rx="0.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+              </svg>
+              <small class="text-muted">Modules</small>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h4 class="card-title">{{ module.title }}</h4>
+              <div class="mt-auto text-end">
+                <button type="button"
+                        class="btn btn-primary"
+                        (click)="goTo('/submodules/' + module.id)">
+                 Open
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
+  </div>
+
+ <!-- Modal for editing course title -->
+  <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourseModalLabel">Edit Course Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <input
+            [(ngModel)]="editedCourseTitle"
+            class="form-control"
+            placeholder="Course title"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleUpdateCourseTitle()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
   </div>
   <app-footer></app-footer>
 </main>
