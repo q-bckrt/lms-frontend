@@ -24,4 +24,12 @@ export class ModuleService {
   getAllModules(): Observable<Array<{ id: number; title: string }>> {
     return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/modules');
   }
+
+  getOneModule(id: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/modules/${id}`);
+  }
+
+  updateModuleTitle(moduleId: number, moduleInput: { title: string }): Observable<any> {
+    return this.http.put(`http://localhost:8080/modules/${moduleId}`, moduleInput);
+  }
 }

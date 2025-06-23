@@ -1,0 +1,42 @@
+/* Prevent scrolling and ensure full height */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Main container for the entire page */
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+/* Modify your existing .content rule */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Ensure navbar and footer don't shrink */
+app-navbar,
+app-footer {
+  flex-shrink: 0;
+}
+
+/* Optional: Style the login box */
+.profile-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.edit-button {
+  text-align: right;
+}

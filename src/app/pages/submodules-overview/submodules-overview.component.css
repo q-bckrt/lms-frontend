@@ -1,4 +1,4 @@
-.dashboard-page {
+.overview-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -8,16 +8,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 20px;
-}
-
-.accordion-body {
-  width: 100%;
-}
-
-.accordion-body .row {
-  width: 100%;
-  margin: 0;
 }
