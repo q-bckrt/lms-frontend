@@ -19,6 +19,6 @@ export const keycloakInterceptor: HttpInterceptorFn = (req, next) => {
       Authorization: `Bearer ${keycloakService.getToken()}`
     }
   })
-
+  console.log(keycloakService.getToken());
   return next(req);
 };

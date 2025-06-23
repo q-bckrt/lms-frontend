@@ -1,0 +1,18 @@
+<main class="comment-page">
+  <app-navbar></app-navbar>
+  <div class="content">
+    <h2 class="mb-4">Add a Comment</h2>
+    <div class="card bg-light mb-4">
+      <div class="card-body">
+        <textarea
+          [(ngModel)]="commentText"
+          rows="4"
+          class="form-control mb-3"
+          placeholder="Write your comment here..."
+        ></textarea>
+        <button class="btn btn-primary" (click)="submitComment()">Send</button>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</main>

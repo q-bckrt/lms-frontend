@@ -24,3 +24,60 @@ app-navbar,
 app-footer {
   flex-shrink: 0;
 }
+
+.hero {
+  color:  #fcfcfd;
+  height: 50vh;
+  background-image: url('/temp_background.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* adjust the 0.5 for more or less darkness */
+  z-index: 1;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 8rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  font-weight: normal;
+}
+
+.introduction {
+  max-width: 800px;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero h2 {
+    font-size: 1.2rem;
+  }
+
+  .introduction {
+    width: 90% !important;
+  }
+}
