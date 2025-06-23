@@ -33,8 +33,13 @@ export class NavbarComponent {
     if (url === '/profile') return 'Profile';
     if (url === '/login') return 'Login';
     if (url === '/register') return 'Register';
-    if (url === '/') return 'Home';
+    if (url === '/') return ' ';
     return 'LMS App';
+  }
+
+  goToHome(): void{
+    console.log('Go to homepage');
+    this.router.navigate(['/'])
   }
 
   goToLogin(): void {
