@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { NgIf } from '@angular/common';
+import {UserService} from '../../services/user-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent {
   pageTitle = ''
   constructor(
     public keycloakService: KeycloakServiceService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -67,9 +69,27 @@ export class NavbarComponent {
     this.router.navigate(['/overview']);
   }
 
+  //now just navigates to the very first class overview --> for a student this works, but for a coach this doesnt make sense...
   goToClass(): void {
     console.log('Class button clicked');
-    this.router.navigate(['/class']);
+
+    const userName: string = this.keycloakService.getTokenUserName();
+
+    this.userService.getUserProfile(userName).subscribe({
+      next: (user) => {
+        const userClassId = user.classes?.[0]?.id;
+
+        if (userClassId) {
+          console.log('Navigating to class ID:', userClassId);
+          this.router.navigate(['/class-overview', userClassId]);
+        } else {
+          console.error('No class ID found for user');
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load user profile:', err);
+      }
+    });
   }
 
   logout() {

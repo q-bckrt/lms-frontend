@@ -6,9 +6,12 @@
   import {classOverviewModel} from '../../models/classOverviewModel';
   import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
   import {ActivatedRoute, Router} from '@angular/router';
-  import {ButtonComponent} from '../../components/button/button.component';
   import {RoleService} from '../../services/role-service.service';
   import {ClassService} from '../../services/class-service';
+  import {CourseService} from '../../services/course.service';
+  import {courseModel} from '../../models/courseModel';
+  import {map} from 'rxjs';
+  import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
   @Component({
     selector: 'app-class',
@@ -17,7 +20,8 @@
       FooterComponent,
       NgFor,
       NgIf,
-      ButtonComponent
+      ReactiveFormsModule,
+      FormsModule
     ],
     templateUrl: './class.component.html',
     styleUrl: './class.component.css'
@@ -25,15 +29,18 @@
   export class ClassComponent implements OnInit{
     private router = inject(Router);
     private classService = inject(ClassService);
-    roleService = inject(RoleService);
     private userService = inject(UserService);
+    private courseService = inject(CourseService)
+    roleService = inject(RoleService);
     private keycloakService = inject(KeycloakServiceService);
     private route = inject(ActivatedRoute);
 
     classId: number = 0;
     classOverviews: classOverviewModel[] = [];
     selectedClassOverview: classOverviewModel | null = null;
-
+    allCourses: courseModel[] = [];
+    selectedCourse: courseModel | null = null;
+    isUserCoach: boolean = false
 
     loading: boolean = true;
 
@@ -41,6 +48,25 @@
     ngOnInit() {
       const userName = this.keycloakService.getTokenUserName()
       this.classId = Number(this.route.snapshot.paramMap.get('id')!);
+      this.isUserCoach = this.roleService.isCoach()
+
+      this.courseService.getAllCourses().pipe(
+        map(responseList =>
+        responseList.map( response => ({
+          id: response.id,
+          title: response.title
+          })
+        )
+        )
+      ).subscribe({
+        next: (courses) => {
+          this.allCourses = courses;
+          console.log("list of courses set")
+        },
+        error: (error) => {
+          console.error("failed to set allCourses")
+        }
+      })
 
       this.userService.getClassOverviews(userName).subscribe({
         next: (overviews) => {
@@ -58,9 +84,14 @@
 
     }
 
-    //the classId for this function is gonna come from the route
     private selectClass(classId: number): void {
-      this.selectedClassOverview = this.classOverviews.find(c => c.id === classId) ?? null;
+      const foundClass = this.classOverviews.find(c => c.id === classId);
+      if(foundClass){
+        this.selectedClassOverview = foundClass
+        console.log(`class with id ${classId} and title ${this.selectedClassOverview.title} selected`)
+      } else {
+        console.error(`classId ${classId} not found in list of classes`)
+      }
     }
 
     goTo(path: string) {
@@ -68,11 +99,10 @@
       this.router.navigate([path]);
     }
 
-    //the classId for this function is gonna come from the route
-    linkCourse(courseId: number) {
-      if(this.selectedClassOverview){
-        this.classService.linkCourseToClass(this.selectedClassOverview?.id,courseId)
-        console.log(`class with id ${this.selectedClassOverview.id} and title ${this.selectedClassOverview.title} linked to course with id ${courseId}`)
+    linkCourse() {
+      if(this.selectedClassOverview && this.selectedCourse){
+        this.classService.linkCourseToClass(this.selectedClassOverview.id,this.selectedCourse.id)
+        console.log(`class with id ${this.selectedClassOverview.id} and title ${this.selectedClassOverview.title} linked to course with id ${this.selectedCourse.id}`)
       } else {
         console.error("No class selected or selectedClassOverview = null")
       }
