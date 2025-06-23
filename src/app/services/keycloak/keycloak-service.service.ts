@@ -26,4 +26,14 @@ export class KeycloakServiceService {
   getToken(){
     return sessionStorage.getItem(this.TOKEN_KEY_NAME);
   }
+
+  getTokenUserName(): string{
+    const token = sessionStorage.getItem(this.TOKEN_KEY_NAME)
+    if (!token) {
+      throw new Error('User not logged in');
+    }
+
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+    return tokenPayload.preferred_username
+  }
 }

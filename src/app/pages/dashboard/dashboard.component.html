@@ -102,7 +102,7 @@
 
     <div *ngIf="roleService.isStudent()">
       <h3>My Learning</h3>
-      <app-button text="View My Class" (clicked)="goTo('/class')"></app-button>
+      <app-button text="View My Class" (clicked)="goTo('/class-overview/1')"></app-button>
       <app-button text="View Courses" (clicked)="goTo('/courses')"></app-button>
       <app-button text="View Modules" (clicked)="goTo('/modules')"></app-button>
       <app-button text="View Codelabs" (clicked)="goTo('/codelabs')"></app-button>

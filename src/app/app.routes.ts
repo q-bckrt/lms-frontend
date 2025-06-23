@@ -16,6 +16,7 @@ import { ModulesOverviewComponent } from './pages/modules-overview/modules-overv
 import { SubmodulesOverviewComponent } from './pages/submodules-overview/submodules-overview.component';
 import { CodelabsOverviewComponent } from './pages/codelabs-overview/codelabs-overview.component';
 import { roleGuard } from './guards/role-guard.guard';
+import {ViewProfileComponent} from './pages/view-profile/view-profile.component';
 
 // Following the refactoring of the structure, those route names should be updated too after consulting with the team.
 export const routes: Routes = [
@@ -26,13 +27,22 @@ export const routes: Routes = [
   { path: 'edit', component: EditComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'overview', component: OverviewComponent },
-  { path: 'class', component: ClassComponent },
+  //{ path: 'class', component: ClassComponent },
   { path: 'create-course', component: CreateCourseComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-class', component: CreateClassComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-module', component: CreateModuleComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'create-codelab', component: CreateCodelabComponent, canActivate: [roleGuard], data: { role: 'coach' } },
   { path: 'courses', component: CoursesOverviewComponent },
+
   { path: 'modules/:id', component: ModulesOverviewComponent },
   { path: 'submodules/:id', component: SubmodulesOverviewComponent },
-  { path: 'codelabs', component: CodelabsOverviewComponent }
+  { path: 'codelabs', component: CodelabsOverviewComponent },
+
+  { path: 'modules', component: ModulesOverviewComponent },
+
+
+  // FROM DASHBOARD TO 'class-overview/:id' --> SELECTED ID NEEDS TO BE PUT IN THIS ROUTE
+  { path: 'class-overview/:id', component: ClassComponent},
+  // FROM CLASS OVERVIEW PASS ON USERNAME TO VIEW USER PROFILE AS COACH
+  { path: 'view-profile/:userName', component: ViewProfileComponent, canActivate: [roleGuard], data: { role: 'coach' } }
 ];
