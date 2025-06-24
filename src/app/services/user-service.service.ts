@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {classOverviewModel} from '../models/classOverviewModel';
 
@@ -42,7 +42,8 @@ export class UserService {
           return {
             id: response.id,
             title: response.title,
-            courseTitle: response.course?.title ?? 'No course assigned',
+            courseId: response.course?.id ?? null,
+            courseTitle: response.course?.title ?? null,
             coaches,
             students
           };
@@ -56,8 +57,11 @@ export class UserService {
     return this.http.put(`${this.apiUrl}/${username}/edit/class?classId=${classId}`, {});
   }
 
-  getAllClasses(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8080/classes');
+  setCurrentProgressLevel(userName: string, codelabId: number, progressLevel: string): Observable<boolean> {
+    const params = new HttpParams().set('progressLevel', progressLevel);
+    console.log(params)
+
+    return this.http.put<boolean>(`${this.apiUrl}/${userName}/edit/codelab/${codelabId}`,{},{params})
   }
 
 }

@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 import {Router} from '@angular/router';
-import {ClassService} from '../../services/class-service';
+import {ClassService} from '../../services/class-service.service';
 import {RoleService} from '../../services/role-service.service';
 
 @Component({

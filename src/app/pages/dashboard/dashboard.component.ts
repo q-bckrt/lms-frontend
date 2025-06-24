@@ -8,7 +8,7 @@ import { UserService } from '../../services/user-service.service';
 import {Router, RouterLink} from '@angular/router';
 import { RoleService } from '../../services/role-service.service';
 import {CourseService} from '../../services/course.service';
-import {ClassService} from '../../services/class-service';
+import {ClassService} from '../../services/class-service.service';
 import {classModel} from '../../models/classModel';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -23,11 +23,18 @@ declare var bootstrap: any;
 export class DashboardComponent implements OnInit {
   userRole = '';
   firstName = '';
+
   userName = '';
+
   courses: Array<{ id: number; title: string }> = [];
+  courseStudent?: {id: number; title: string};
   classes: classModel[] = [];
+
   newCourseTitle: string = '';
   newClassTitle: string = '';
+
+  courseId?: number;
+
 
 
   constructor(
@@ -41,24 +48,31 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.initializeUserData();
-    this.classService.findAllClasses().subscribe({
+    this.classService.findClassesPerUser(this.username).subscribe({
       next: (classes) => {
         this.classes = classes;
+        if (!classes || classes.length === 0) {
+          alert('You are not assigned to any class yet.');
+        }
+        this.handleStudentCourseLoad();
       },
       error: (err) => {
         console.error('Failed to load classes:', err);
         alert('Failed to load classes. Please try again later.');
       }
     })
-    this.courseService.getAllCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses;
-      },
-      error: (err) => {
-        console.error('Failed to load courses:', err);
-        alert('Failed to load courses. Please try again later.');
-      }
-    })
+    // only coach need to have all courses
+    if(this.roleService.isCoach()){
+      this.courseService.getAllCourses().subscribe({
+        next: (courses) => {
+          this.courses = courses;
+        },
+        error: (err) => {
+          console.error('Failed to load courses:', err);
+          alert('Failed to load courses. Please try again later.');
+        }
+      })
+    }
   }
 
   private initializeUserData() {
@@ -67,9 +81,9 @@ export class DashboardComponent implements OnInit {
       try {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
         this.firstName = tokenData.given_name || '';
+
         this.userName = tokenData.preferred_username || '';
-        console.log("FIRST NAME: " + this.firstName);
-        console.log("USERNAME: " + this.userName);
+
         this.roleService.userRole$.subscribe(role => {
           this.userRole = role;
         });
@@ -78,6 +92,7 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+
 
   handleCreateNewCourse() {
     this.courseService.createCourse({ title: this.newCourseTitle }).subscribe((response) => {
@@ -107,6 +122,18 @@ export class DashboardComponent implements OnInit {
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
     })
+
+  private handleStudentCourseLoad() {
+    if (this.roleService.isStudent() && this.classes.length > 0) {
+      const firstClass = this.classes[0];
+      if (firstClass?.courseId) {
+        this.courseId = firstClass.courseId;
+        this.courseService.getOneCourse(this.courseId).subscribe(course => {
+          this.courseStudent = course;
+        });
+      }
+    }
+
   }
 
   goTo(path: string) {

@@ -14,8 +14,7 @@ export class RoleService {
   }
 
   private initializeRole() {
-    // Clear any existing role
-    this.userRole.next('');
+    this.userRole.next(''); // Clear any existing role
 
     const token = this.keycloakService.getToken();
     if (token) {
@@ -24,17 +23,20 @@ export class RoleService {
         if (tokenData.resource_access?.lms?.roles?.includes('COACH')) {
           console.log('Setting role to coach');
           this.userRole.next('coach');
-        } else {
+        } else if (tokenData.resource_access?.lms?.roles?.includes('STUDENT')) {
           console.log('Setting role to student');
           this.userRole.next('student');
+        } else {
+          console.warn('No recognized role found in token');
+          this.userRole.next('');
         }
       } catch (error) {
         console.error('Error parsing token:', error);
-        this.userRole.next('student');
+        this.userRole.next('');
       }
     } else {
-      console.log('No token found'); // Debug log
-      this.userRole.next('student');
+      console.warn('No token found');
+      this.userRole.next('');
     }
   }
 
@@ -44,15 +46,11 @@ export class RoleService {
   }
 
   isCoach(): boolean {
-    const isCoach = this.userRole.value === 'coach';
-    console.log('isCoach check:', isCoach, 'Current role:', this.userRole.value); // Debug log
-    return isCoach;
+    return this.userRole.value === 'coach';
   }
 
   isStudent(): boolean {
-    const isStudent = this.userRole.value === 'student';
-    console.log('isStudent check:', isStudent, 'Current role:', this.userRole.value); // Debug log
-    return isStudent;
+    return this.userRole.value === 'student';
   }
 
   getCurrentRole(): string {

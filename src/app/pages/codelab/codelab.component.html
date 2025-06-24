@@ -1,46 +1,165 @@
 <main class="codelab-page">
   <app-navbar></app-navbar>
+
   <div class="content container-fluid p-4">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm position-relative">
       <div class="card-body">
-        <!-- Header with title and buttons -->
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-          <h1 class="h3 mb-0"> {{ codelab?.title }}</h1>
-          <div class="d-flex gap-2">
-            <button class="btn btn-primary">Edit</button>
-            <button class="btn btn-secondary" (click)="goToCommentPage()">Comment</button>
+        
+        <!-- Top Header -->
+        <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap">
+          <!-- Title -->
+          <div class="d-flex align-items-center flex-wrap gap-2">
+            <h1 class="h3 mb-0">{{ codelab?.title }}</h1>
+            <span
+              *ngIf="userRole === 'student'"
+              class="badge bg-info text-dark align-self-center"
+            >
+              Progress: {{ currentProgress }}
+            </span>
+          </div>
+          
+          <!-- Student Progress Dropdown -->
+          <div class="d-flex gap-2 ms-auto">
+            <button
+              class="btn btn-primary btn-sm"
+              *ngIf="userRole === 'coach'"
+              data-bs-toggle="modal"
+              data-bs-target="#editCourseModal"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-secondary btn-sm"
+              (click)="goToCommentPage()"
+              style="white-space: nowrap;"
+            >
+              Comment
+            </button>
           </div>
         </div>
 
-        <!-- Description box -->
+        <ng-container *ngIf="userRole === 'student'">
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <label for="progressLevelSelect" class="mb-0">Select progress:</label>
+            <select
+              id="progressLevelSelect"
+              [(ngModel)]="selectedProgressLevel"
+              class="form-select form-select-sm w-auto pt-1"
+            >
+              <option [ngValue]="null">-- Select a level --</option>
+              <option
+                *ngFor="let progressLevel of allProgressLevels"
+                [ngValue]="progressLevel"
+              >
+                {{ progressLevel }}
+              </option>
+            </select>
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="setProgressLevel()"
+              [disabled]="!selectedProgressLevel"
+            >
+              Set
+            </button>
+          </div>
+        </ng-container>
+        
+        
+
+        <!-- Description Box -->
+        <h2 class="h5 mb-3 pt-3">Description</h2>
         <div class="card bg-light mb-4">
           <div class="card-body py-3">
             <p class="mb-0 text-muted">
-              {{ codelab?.details !== null && codelab?.details !== undefined && codelab?.details !== '' ? codelab?.details : 'There is no description.' }}
+              {{
+                codelab?.details !== null &&
+                codelab?.details !== undefined &&
+                codelab?.details !== ''
+                  ? codelab?.details
+                  : 'There is no description.'
+              }}
             </p>
           </div>
         </div>
 
-        <!-- Comments section -->
+        <!-- Comments Section -->
         <div class="mt-4">
           <h2 class="h5 mb-3">Comments</h2>
 
-          <div *ngIf="comments.length === 0" class="text-muted">No comments yet.</div>
+          <div *ngIf="comments.length === 0" class="text-muted">
+            No comments yet.
+          </div>
 
-          <div *ngFor="let comment of comments" class="card bg-light mb-3 comment-item">
+          <div
+            *ngFor="let comment of comments"
+            class="card bg-light mb-3 comment-item"
+          >
             <div class="card-body py-3">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="fw-bold comment-username">{{ comment.userDisplayName }}</span>
-                <small class="text-muted comment-timestamp">{{ getRelativeTime(comment.timeStamp) }}</small>
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
+                <span class="fw-bold comment-username">
+                  {{ comment.userDisplayName }}
+                </span>
+                <small class="text-muted comment-timestamp">
+                  {{ getRelativeTime(comment.timeStamp) }}
+                </small>
               </div>
-              <p class="mb-0">
-                {{ comment.comment }}
-              </p>
+              <p class="mb-0">{{ comment.comment }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Edit Course Modal -->
+  <div
+    class="modal fade"
+    id="editCourseModal"
+    tabindex="-1"
+    aria-labelledby="editCourseModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCourseModalLabel">Edit Course Title</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <input
+            [(ngModel)]="editedCourseTitle"
+            class="form-control"
+            placeholder="Course title"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="handleUpdateCourseTitle()"
+          >
+            Save changes
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <app-footer></app-footer>
 </main>

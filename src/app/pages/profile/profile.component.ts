@@ -8,6 +8,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { UserService } from '../../services/user-service.service';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
 import { RoleService } from '../../services/role-service.service';
+import { ClassService } from '../../services/class-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private classService: ClassService,
     private router: Router,
     private keycloakService: KeycloakServiceService,
     private roleService: RoleService
@@ -77,7 +79,7 @@ export class ProfileComponent implements OnInit {
       });
     });
 
-    this.userService.getAllClasses().subscribe({
+    this.classService.findAllClasses().subscribe({
       next: (classes) => {
         this.availableClasses = classes;
       },
