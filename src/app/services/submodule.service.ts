@@ -22,4 +22,8 @@ export class SubmoduleService {
     return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/submodules');
   }
 
+  getSubmodule(id: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/submodules/${id}`);
+  }
+
 }

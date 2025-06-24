@@ -39,7 +39,7 @@ export const routes: Routes = [
 
   { path: 'modules/:id', component: ModulesOverviewComponent },
   { path: 'submodules/:id', component: SubmodulesOverviewComponent },
-  { path: 'codelabs', component: CodelabsOverviewComponent },
+  { path: 'module-codelabs/:id', component: CodelabsOverviewComponent },
 
   { path: 'modules', component: ModulesOverviewComponent },
 

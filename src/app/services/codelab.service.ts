@@ -26,6 +26,10 @@ export class CodelabService {
   constructor(private http: HttpClient) {
   }
 
+  getAllCodelabs(): Observable<Codelab[]> {
+    return this.http.get<Codelab[]>(`${this.baseUrl}/codelabs`);
+  }
+
   getCodelab(id: number): Observable<Codelab> {
     return this.http.get<Codelab>(`${this.baseUrl}/codelabs/${id}`);
   }
