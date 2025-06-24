@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {classOverviewModel} from '../models/classOverviewModel';
 
@@ -56,4 +56,12 @@ export class UserService {
   assignClassToUser(username: string, classId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${username}/edit/class?classId=${classId}`, {});
   }
+
+  setCurrentProgressLevel(userName: string, codelabId: number, progressLevel: string): Observable<boolean> {
+    const params = new HttpParams().set('progressLevel', progressLevel);
+    console.log(params)
+
+    return this.http.put<boolean>(`${this.apiUrl}/${userName}/edit/codelab/${codelabId}`,{},{params})
+  }
+
 }

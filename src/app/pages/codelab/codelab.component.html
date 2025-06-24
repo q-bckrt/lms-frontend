@@ -6,6 +6,25 @@
         <!-- Header with title and buttons -->
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
           <h1 class="h3 mb-0"> {{ codelab?.title }}</h1>
+
+          <!-- drop down for progress levels -->
+          <!-- ONLY FOR STUDENTS -->
+          <ng-container *ngIf="userRole === 'student'">
+            <h1 class="h3 mb-0"> {{ currentProgress }}</h1>
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <label for="progressLevelSelect">Select progress:</label>
+                <select id="progressLevelSelect" [(ngModel)]="selectedProgressLevel" class="form-control">
+                  <option [ngValue]="null">-- Select a progressLevel --</option>
+                  <option *ngFor="let progressLevel of allProgressLevels" [ngValue]="progressLevel">
+                    {{ progressLevel }}
+                  </option>
+                </select>
+                <button class="btn btn-primary mt-2" (click)="setProgressLevel()">Set progress </button>
+              </div>
+            </div>
+          </ng-container>
+
           <div class="d-flex gap-2">
             <!-- Button triggers modal -->
             <button class="btn btn-primary" *ngIf="userRole === 'coach'" data-bs-toggle="modal" data-bs-target="#editCourseModal">Edit</button>
