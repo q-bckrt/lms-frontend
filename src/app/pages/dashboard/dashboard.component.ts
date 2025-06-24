@@ -20,8 +20,11 @@ import {classModel} from '../../models/classModel';
 export class DashboardComponent implements OnInit {
   userRole = '';
   firstName = '';
+  username= '';
   courses: Array<{ id: number; title: string }> = [];
+  courseStudent?: {id: number; title: string};
   classes: classModel[] = [];
+  courseId?: number;
 
 
   constructor(
@@ -35,24 +38,31 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.initializeUserData();
-    this.classService.findAllClasses().subscribe({
+    this.classService.findClassesPerUser(this.username).subscribe({
       next: (classes) => {
         this.classes = classes;
+        if (!classes || classes.length === 0) {
+          alert('You are not assigned to any class yet.');
+        }
+        this.handleStudentCourseLoad();
       },
       error: (err) => {
         console.error('Failed to load classes:', err);
         alert('Failed to load classes. Please try again later.');
       }
     })
-    this.courseService.getAllCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses;
-      },
-      error: (err) => {
-        console.error('Failed to load courses:', err);
-        alert('Failed to load courses. Please try again later.');
-      }
-    })
+    // only coach need to have all courses
+    if(this.roleService.isCoach()){
+      this.courseService.getAllCourses().subscribe({
+        next: (courses) => {
+          this.courses = courses;
+        },
+        error: (err) => {
+          console.error('Failed to load courses:', err);
+          alert('Failed to load courses. Please try again later.');
+        }
+      })
+    }
   }
 
   // What is the way of getting the first and last name of the user?
@@ -62,11 +72,24 @@ export class DashboardComponent implements OnInit {
       try {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
         this.firstName = tokenData.given_name || '';
+        this.username = tokenData.preferred_username;
         this.roleService.userRole$.subscribe(role => {
           this.userRole = role;
         });
       } catch (error) {
         console.error('Error parsing token:', error);
+      }
+    }
+  }
+
+  private handleStudentCourseLoad() {
+    if (this.roleService.isStudent() && this.classes.length > 0) {
+      const firstClass = this.classes[0];
+      if (firstClass?.courseId) {
+        this.courseId = firstClass.courseId;
+        this.courseService.getOneCourse(this.courseId).subscribe(course => {
+          this.courseStudent = course;
+        });
       }
     }
   }

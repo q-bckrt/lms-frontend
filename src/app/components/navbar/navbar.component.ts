@@ -69,6 +69,7 @@ export class NavbarComponent {
     this.router.navigate(['/overview']);
   }
 
+
   //now just navigates to the very first class overview --> for a student this works, but for a coach this doesnt make sense...
   goToClass(): void {
     console.log('Class button clicked');
