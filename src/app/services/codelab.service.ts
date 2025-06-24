@@ -33,4 +33,8 @@ export class CodelabService {
   getCodelabComments(codelabId: number): Observable<CodelabComment[]> {
     return this.http.get<CodelabComment[]>(`${this.baseUrl}/codelabs/${codelabId}/comments`);
   }
+
+  updateCodelab(id: number, data: Partial<Codelab>): Observable<Codelab> {
+    return this.http.put<Codelab>(`${this.baseUrl}/codelabs/${id}`, data);
+  }
 }
