@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -15,16 +15,20 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-modules-overview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule],
+  imports: [NavbarComponent, FooterComponent, NgFor, FormsModule],
   templateUrl: './modules-overview.component.html',
   styleUrl: './modules-overview.component.css'
 })
-export class ModulesOverviewComponent implements OnInit {
+export class ModulesOverviewComponent implements OnInit, AfterViewInit {
+  @ViewChild('addExistingModuleModal') modalElement!: ElementRef;
+
   modules: Array<{ id: number; title: string }> = [];
+  extModules: Array<{ id: number; title: string }> = [];
   courseId!: number;
   courseTitle: string = '';
   editedCourseTitle: string = '';
   newModuleTitle: string = '';
+  selectedModuleId!: number;
 
   constructor(
     private router: Router,
@@ -48,6 +52,21 @@ export class ModulesOverviewComponent implements OnInit {
         mod.parentCourses.includes(course.id)
       );
     });
+  }
+
+  ngAfterViewInit(): void {
+    const modal = this.modalElement.nativeElement;
+    modal.addEventListener('shown.bs.modal', () => {
+      this.onModalOpened();
+    });
+  }
+
+  onModalOpened(): void {
+    console.log('Modal opened!');
+    this.moduleService.getAllModules().subscribe(modules => {
+      this.extModules = modules.filter((mod: any) => !this.modules.some(m => m.id === mod.id));
+      console.log("extModules:", this.extModules);
+    })
   }
 
   handleUpdateCourseTitle() {
@@ -76,6 +95,22 @@ export class ModulesOverviewComponent implements OnInit {
       });
     })
       const modalEl = document.getElementById('createModuleModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+    })
+  }
+
+  handleAddExistingModule() {
+    this.courseService.addModuleToCourse(this.courseId, this.selectedModuleId).subscribe(() => {
+      console.log('Module added to course');
+      // refresh the module list
+      this.moduleService.getAllModules().subscribe(modules => {
+        this.modules = modules.filter((mod: any) =>
+          mod.parentCourses.includes(this.courseId)
+        );
+      });
+
+      const modalEl = document.getElementById('addExistingModuleModal');
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
     })
