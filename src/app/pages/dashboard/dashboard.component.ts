@@ -8,7 +8,7 @@ import { UserService } from '../../services/user-service.service';
 import {Router, RouterLink} from '@angular/router';
 import { RoleService } from '../../services/role-service.service';
 import {CourseService} from '../../services/course.service';
-import {ClassService} from '../../services/class-service';
+import {ClassService} from '../../services/class-service.service';
 import {classModel} from '../../models/classModel';
 
 @Component({

@@ -7,7 +7,7 @@
   import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
   import {ActivatedRoute, Router} from '@angular/router';
   import {RoleService} from '../../services/role-service.service';
-  import {ClassService} from '../../services/class-service';
+  import {ClassService} from '../../services/class-service.service';
   import {CourseService} from '../../services/course.service';
   import {courseModel} from '../../models/courseModel';
   import {map} from 'rxjs';
