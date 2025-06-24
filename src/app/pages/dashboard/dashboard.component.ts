@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.initializeUserData();
-    this.classService.findClassesPerUser(this.username).subscribe({
+    this.classService.findClassesPerUser(this.userName).subscribe({
       next: (classes) => {
         this.classes = classes;
         if (!classes || classes.length === 0) {
@@ -122,6 +122,7 @@ export class DashboardComponent implements OnInit {
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
     })
+  }
 
   private handleStudentCourseLoad() {
     if (this.roleService.isStudent() && this.classes.length > 0) {
