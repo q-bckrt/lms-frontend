@@ -28,6 +28,7 @@ export class CourseService {
   }
 
   addModuleToCourse(courseId: number, moduleId: number): Observable<any> {
+    console.log('Module adding to course', courseId, moduleId);
     return this.http.put(`http://localhost:8080/courses/${courseId}/modules/${moduleId}`, {});
   }
 
