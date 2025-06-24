@@ -29,4 +29,8 @@ export class ClassService {
   findAllClasses(): Observable<classModel[]> {
     return this.http.get<classModel[]>(`${this.apiUrl}`);
   }
+
+  findClassesPerUser(username: string): Observable<classModel[]> {
+    return this.http.get<classModel[]>(`${this.apiUrl}/get-classes/${username}`);
+  }
 }

@@ -67,11 +67,6 @@ export class NavbarComponent {
     this.router.navigate(['/overview']);
   }
 
-  goToClass(): void {
-    console.log('Class button clicked');
-    this.router.navigate(['/class']);
-  }
-
   logout() {
     sessionStorage.removeItem('TOKEN_KEY_NAME');
     this.router.navigate(['/']);
