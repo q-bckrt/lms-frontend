@@ -47,7 +47,6 @@ export class OverviewComponent {
       this.userService.getProgressCodelabsPerUser(this.username).subscribe({
 
           next: (progress) => {
-
             this.codelabsStudent = progress
             console.log(this.username)
             console.log("successfully got the codelabs")
@@ -60,9 +59,11 @@ export class OverviewComponent {
       }
 
       )
-    } else {
-      console.log(this.roleService)
-      console.log(this.username)
+    }
+
+    if( this.roleService.isCoach()){
+      // get all class for this coach
+      // for a specific class get all
     }
   }
 
