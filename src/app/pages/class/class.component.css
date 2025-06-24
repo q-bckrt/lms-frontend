@@ -32,7 +32,7 @@ app-footer {
 }
 
 .student-card {
-  border: 2px solid #000;
+  border: 2px solid #a1e435;
   padding: 12px;
   border-radius: 8px;
   background: white;
@@ -40,4 +40,11 @@ app-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.selector {
+  width: 33vw; /* 30% of the viewport width */
+  max-width: 33vw; /* ensure it doesn’t grow beyond that */
+  min-width: 250px; /* optional, to avoid too small on very narrow screens */
+  margin-left: 0; /* your ms0 class might be margin-left: 0 */
 }

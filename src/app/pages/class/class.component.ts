@@ -100,13 +100,23 @@
     }
 
     linkCourse() {
-      if(this.selectedClassOverview && this.selectedCourse){
-        this.classService.linkCourseToClass(this.selectedClassOverview.id,this.selectedCourse.id)
-        console.log(`class with id ${this.selectedClassOverview.id} and title ${this.selectedClassOverview.title} linked to course with id ${this.selectedCourse.id}`)
+      console.log(this.selectedCourse?.title)
+      if (this.selectedClassOverview && this.selectedCourse) {
+        console.log(this.selectedCourse)
+        this.classService.linkCourseToClass(this.selectedClassOverview.id, this.selectedCourse.id).subscribe({
+          next: () => {
+            this.selectedClassOverview!.courseTitle=this.selectedCourse!.title;
+            this.selectedClassOverview!.courseId=this.selectedCourse!.id;
+            console.log(`Class with ID ${this.selectedClassOverview!.id} and title "${this.selectedClassOverview!.title}" linked to course with ID ${this.selectedCourse!.id}`);
+            //alert(`Class "${this.selectedClassOverview!.title}" linked to course with ID ${this.selectedCourse!.id}`)
+          },
+          error: (err) => {
+            console.error("Failed to link class to course:", err);
+          }
+        });
       } else {
-        console.error("No class selected or selectedClassOverview = null")
+        console.error("No course selected or selectedClassOverview is null");
       }
-
     }
 
   }
