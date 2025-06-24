@@ -56,10 +56,4 @@ export class UserService {
   assignClassToUser(username: string, classId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${username}/edit/class?classId=${classId}`, {});
   }
-
-  // Temporary method
-  getAllClasses(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8080/classes');
-  }
-
 }
