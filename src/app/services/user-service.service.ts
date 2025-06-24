@@ -42,7 +42,8 @@ export class UserService {
           return {
             id: response.id,
             title: response.title,
-            courseTitle: response.course?.title ?? 'No course assigned',
+            courseId: response.course?.id ?? null,
+            courseTitle: response.course?.title ?? null,
             coaches,
             students
           };
