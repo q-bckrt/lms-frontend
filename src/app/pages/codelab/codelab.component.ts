@@ -53,10 +53,10 @@ export class CodelabComponent implements OnInit {
     this.codelabService.getAllProgressLevels().subscribe({
       next: (progressLevels) => {
         this.allProgressLevels=progressLevels;
-        console.log("list of all progressLevels set")
+        console.log("list of all progressLevels set - all levels")
       },
       error: (err: any) => {
-        console.error("failed to fetch and set list of progressLevels")
+        console.error("failed to fetch and set list of progressLevels - all levels")
       }
     })
 
@@ -78,10 +78,11 @@ export class CodelabComponent implements OnInit {
     this.codelabService.getCurrentProgressLevelForUser(this.codelabId, this.userName).subscribe({
         next: (progressLevel) => {
           this.currentProgress = progressLevel.progressLevel;
-          console.log("list of all progressLevels set")
+          console.log("current progress level set");
         },
         error: (err: any) => {
-          console.error("failed to fetch and set list of progressLevels")
+          console.error("failed to fetch and set current progress level");
+          console.log(this.currentProgress);
         }
       }
     )

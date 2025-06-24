@@ -26,4 +26,8 @@ export class SubmoduleService {
     return this.http.get(`http://localhost:8080/submodules/${id}`);
   }
 
+  updateSubmoduleTitle(submoduleId: number, submoduleInput: { title: string }): Observable<any> {
+    return this.http.put(`http://localhost:8080/submodules/${submoduleId}`, submoduleInput);
+  }
+
 }

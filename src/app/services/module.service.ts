@@ -14,7 +14,6 @@ export class ModuleService {
     private keycloakService: KeycloakServiceService
   ) { }
 
-  // Later we should make sure it's added to a course immediately after creation
   createModule(module: { title: string }): Observable<any> {
 
 
