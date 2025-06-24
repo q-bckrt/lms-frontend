@@ -1,5 +1,6 @@
 export interface progressPerUser
 {
-  title: string;
+  codelabTitle: string;
   progressLevel: string;
+  codelabId: number;
 }

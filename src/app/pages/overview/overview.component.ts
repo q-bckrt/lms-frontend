@@ -3,6 +3,12 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {CommonModule} from '@angular/common';
 import { RoleService } from '../../services/role-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
+import {UserService} from '../../services/user-service.service';
+import {Router} from '@angular/router';
+import {CourseService} from '../../services/course.service';
+import {ClassService} from '../../services/class-service.service';
+import {progressUserListModel} from '../../models/progressUserListModel';
 
 @Component({
   selector: 'app-overview',
@@ -15,99 +21,77 @@ import { RoleService } from '../../services/role-service.service';
   styleUrl: './overview.component.css'
 })
 export class OverviewComponent {
-  userRole: 'student' | 'coach' = 'student'; // default
-  username = '';
+  userRole = '';
+  firstName = '';
+  username= '';
+  codelabsStudent: progressUserListModel | null=null;
 
-  constructor(public roleService: RoleService) {}
+  constructor(
+    private keycloakService: KeycloakServiceService,
+    private userService: UserService,
+    private router: Router,
+    public roleService: RoleService,
+    private courseService: CourseService,
+    private classService: ClassService
+  ) {}
 
   ngOnInit(): void {
-    this.roleService.userRole$.subscribe(role => {
-      if (role === 'coach' || role === 'student') {
-        this.userRole = role;
-      }
-    });
+    this.initializeUserData();
 
-    const token = sessionStorage.getItem('TOKEN_KEY_NAME');
+    this.roleService.userRole$.subscribe(role => {
+      this.userRole = role;
+    })
+
+    if (this.roleService.isStudent() && this.username){
+
+      this.userService.getProgressCodelabsPerUser(this.username).subscribe({
+
+          next: (progress) => {
+
+            this.codelabsStudent = progress
+            console.log(this.username)
+            console.log("successfully got the codelabs")
+            console.log(this.codelabsStudent?.progressPerUserDtoList)
+          },
+          error: (err) => {
+            console.error('Failed to load codelabs:', err);
+            alert('Failed to load codelabs. Please try again later.');
+          }
+      }
+
+      )
+    } else {
+      console.log(this.roleService)
+      console.log(this.username)
+    }
+  }
+
+  // What is the way of getting the first and last name of the user?
+  private initializeUserData() {
+    const token = this.keycloakService.getToken();
     if (token) {
       try {
         const tokenData = JSON.parse(atob(token.split('.')[1]));
+        this.firstName = tokenData.given_name || '';
         this.username = tokenData.preferred_username;
-      } catch (e) {
-        console.error('Failed to parse token', e);
+        this.roleService.userRole$.subscribe(role => {
+          this.userRole = role;
+        });
+      } catch (error) {
+        console.error('Error parsing token:', error);
       }
     }
   }
 
-  cards = [
-    {
-      header: 'Java basics',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java advanced',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java basics',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java advanced',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java basics',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java advanced',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java basics',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    },
-    {
-      header: 'Java advanced',
-      codelabs: {
-        codelab1: 'codelab1',
-        codelab2: 'codelab2',
-        codelab3: 'codelab3'
-      }
-    }
-  ];
+  goTo(path: string) {
+    console.log('Button clicked');
+    this.router.navigate([path]);
+  }
 
   students = [
     { name: 'Alice', completedCodelabs: 3, totalCodelabs: 8 },
     { name: 'Bob', completedCodelabs: 5, totalCodelabs: 8 },
     { name: 'Charlie', completedCodelabs: 8, totalCodelabs: 8 }
   ];
+
 }
