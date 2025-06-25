@@ -54,6 +54,29 @@ this.userService.updateUserProfile('alice', newProfileData).subscribe(response =
 });
 ```
 
+### `getClassOverviews(userName: string): Observable<classOverviewModel[]>`
+Retrieves a list of class overviews for the specified user, including associated coaches and students.
+
+- **HTTP Method:** `GET`
+- **Endpoint:** `/users/{userName}/class-overview`
+- **Parameters:**
+  - `userName`: The username of the user whose class overviews are to be retrieved.
+- **Returns:** `Observable<classOverviewModel[]>` – A list of class overview objects, each containing:
+  - `id`: Class ID
+  - `title`: Class title
+  - `courseId`: ID of the associated course (if any)
+  - `courseTitle`: Title of the associated course (if any)
+  - `coaches`: An array of users with the role `COACH`
+  - `students`: An array of users with the role `STUDENT`
+
+#### Example
+
+```typescript
+this.userService.getClassOverviews('alice').subscribe(classOverviews => {
+  console.log('Class overviews:', classOverviews);
+});
+```
+
 ### `assignClassToUser(username: string, classId: number): Observable<any>`
 Assigns a class to a specific user.
 
@@ -69,5 +92,24 @@ Assigns a class to a specific user.
 ```typescript
 this.userService.assignClassToUser('alice', 42).subscribe(response => {
   console.log('Class assigned:', response);
+});
+```
+
+### `setCurrentProgressLevel(userName: string, codelabId: number, progressLevel: string): Observable<boolean>`
+Updates the current progress level of a user for a specific codelab.
+
+- **HTTP Method:** `PUT`
+- **Endpoint:** `/users/{userName}/edit/codelab/{codelabId}?progressLevel={progressLevel}`
+- **Parameters:**
+  - `userName`: The username of the user whose progress is being updated.
+  - `codelabId`: The ID of the codelab.
+  - `progressLevel`: The new progress level to set (e.g., `NOT_STARTED`, `IN_PROGRESS`, `COMPLETED`).
+- **Returns:** `Observable<boolean>` – Indicates whether the update was successful.
+
+#### Example
+
+```typescript
+this.userService.setCurrentProgressLevel('alice', 7, 'IN_PROGRESS').subscribe(success => {
+  console.log('Progress level updated:', success);
 });
 ```
