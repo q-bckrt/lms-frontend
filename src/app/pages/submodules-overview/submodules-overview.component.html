@@ -19,7 +19,7 @@
       <meter id="disk_d" value="{{moduleProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
     </div>
 
-    <h4 *ngIf="!loading && submodules.length===0"> There are no submodules available for this module yet</h4>
+    <h4 *ngIf="!loading && submodules.length===0"> There are no submodules available for this module yet.</h4>
 
 
     <div class="container-fluid px-0">
@@ -32,7 +32,7 @@
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
                 <path d="M8 6H16M8 10H16M8 14H11M6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-              <small class="text-muted">Lesson</small>
+              <small class="text-muted">Submodule</small>
             </div>
             <div class="card-body d-flex flex-column">
               <h4 class="card-title">{{ submodule.title }}</h4>
@@ -114,7 +114,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <div>
+        <div class="modal-body">
+          <h5 *ngIf="!loading && extSubmodules.length===0 "> All existing submodules already added to this module. </h5>
           <label for="course" class="form-label mt-4">Select Submodule</label>
           <select class="form-select" id="course" [(ngModel)]="selectedSubmoduleId" name="course" required>
             <option *ngFor="let module of extSubmodules" [value]="module.id">{{ module.title }}</option>

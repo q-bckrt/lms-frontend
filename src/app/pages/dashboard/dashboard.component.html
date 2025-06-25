@@ -12,7 +12,7 @@
 
     <div *ngIf="roleService.isCoach()">
 
-      <h4 *ngIf="classes.length===0"> Not assigned to any classes </h4>
+      <h4 *ngIf="classes.length===0"> Not assigned to any classes. </h4>
 
       <div class="accordion w-100" id="accordionExample">
         <div class="accordion-item">
@@ -58,7 +58,7 @@
           </div>
         </div>
 
-        <h4 *ngIf="courses.length===0"> No courses available, please create courses first </h4>
+        <h4 *ngIf="courses.length===0"> No courses available, please create courses first. </h4>
 
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
@@ -174,7 +174,7 @@
   </div>
 
 
-  <!-- Modal for creating a new module -->
+  <!-- Modal for creating a new class -->
   <div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -188,7 +188,7 @@
           <input
             [(ngModel)]="newClassTitle"
             class="form-control"
-            placeholder="Course title"
+            placeholder="Class title"
           />
         </div>
 

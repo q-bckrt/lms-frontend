@@ -37,11 +37,12 @@
         </div>
 
         <ng-container *ngIf="ready">
-          <div class="card bg-light mb-3" *ngIf="role === 'coach' || (role === 'student' && classes.length === 0)">
+          <h5 *ngIf="role === 'coach' && availableClasses.length===0 "> You are already assigned to all existing classes </h5>
+          <div class="card bg-light mb-3" *ngIf="(role === 'coach' || (role === 'student' && classes.length === 0)) && availableClasses.length > classes.length">
             <div class="card-body">
               <h5 class="card-title">Assign a Class</h5>
               <label for="classSelect" class="form-label">Select a class to assign:</label>
-              <select id="classSelect" [(ngModel)]="selectedClassId" class="form-control">
+              <select  id="classSelect" [(ngModel)]="selectedClassId" class="form-control">
                 <option [ngValue]="null">-- Select a class --</option>
                 <option *ngFor="let cls of availableClasses" [value]="cls.id">
                   {{ cls.title }}

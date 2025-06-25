@@ -35,6 +35,8 @@ export class ProfileComponent implements OnInit {
   role: string = '';
   ready = false;
 
+
+
   constructor(
     private userService: UserService,
     private classService: ClassService,
@@ -81,7 +83,7 @@ export class ProfileComponent implements OnInit {
 
     this.classService.findAllClasses().subscribe({
       next: (classes) => {
-        this.availableClasses = classes;
+        this.availableClasses = classes.filter((curClass: any) => !this.classes.some(c => c.id === curClass.id));
       },
       error: (err) => {
         console.error('Failed to load class list:', err);
