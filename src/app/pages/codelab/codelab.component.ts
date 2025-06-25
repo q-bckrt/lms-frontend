@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
-import {ButtonComponent} from '../../components/button/button.component';
 import {Codelab, CodelabService, CodelabComment } from '../../services/codelab.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -20,7 +19,6 @@ declare var bootstrap: any;
   imports: [
     NavbarComponent,
     FooterComponent,
-    ButtonComponent,
     CommonModule,
     FormsModule
   ],

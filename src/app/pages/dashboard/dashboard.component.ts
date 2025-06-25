@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { ButtonComponent } from '../../components/button/button.component';
 import {NgForOf, NgIf} from '@angular/common';
 import { KeycloakServiceService } from '../../services/keycloak/keycloak-service.service';
-import { UserService } from '../../services/user-service.service';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import { RoleService } from '../../services/role-service.service';
 import {CourseService} from '../../services/course.service';
 import {ClassService} from '../../services/class-service.service';
@@ -16,7 +14,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavbarComponent, FooterComponent, ButtonComponent, NgIf, NgForOf, RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [NavbarComponent, FooterComponent, NgIf, NgForOf, ReactiveFormsModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
