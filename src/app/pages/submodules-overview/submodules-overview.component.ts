@@ -10,6 +10,7 @@ import {forkJoin} from 'rxjs';
 import {SubmoduleService} from '../../services/submodule.service';
 import {FormsModule} from '@angular/forms';
 import {RoleService} from '../../services/role-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 
 declare var bootstrap: any;
 
@@ -32,18 +33,22 @@ export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
   selectedSubmoduleId!: number;
   loading: boolean =true;
   isCoach: boolean = true;
+  moduleProgress: number = 0;
+  userName: string = '';
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private subService: SubmoduleService,
     private route: ActivatedRoute,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private keycloakService: KeycloakServiceService
   ) { }
 
   ngOnInit() {
     this.moduleId = Number(this.route.snapshot.paramMap.get('id'));
     this.isCoach = this.roleService.isCoach();
+    this.userName = this.keycloakService.getTokenUserName();
 
     // fetch both the module and the full submodule list in parallel
     forkJoin({
@@ -61,6 +66,14 @@ export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
       );
       this.loading=false;
     });
+
+    this.moduleService.getProgressPercentageModule(this.userName,this.moduleId).subscribe({
+      next: progress => {
+        this.moduleProgress =progress;
+        console.log(`successfully fethced and initialized module progress: ${progress} percent`)
+      },
+      error: err => console.error('Failed to fetch and initialize module progress')
+    })
   }
 
   ngAfterViewInit() {

@@ -13,6 +13,12 @@
       </div>
     </div>
 
+    <div *ngIf="!isCoach">
+      <label for="disk_d" class="fw-medium"> module progress </label>
+      <br>
+      <meter id="disk_d" value="{{moduleProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
+    </div>
+
     <h4 *ngIf="!loading && submodules.length===0"> There are no submodules available for this module yet</h4>
 
 

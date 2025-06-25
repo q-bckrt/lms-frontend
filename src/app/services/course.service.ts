@@ -35,4 +35,8 @@ export class CourseService {
   updateCourseTitle(courseId: number, courseInput: { title: string }): Observable<any> {
     return this.http.put(`http://localhost:8080/courses/${courseId}`, courseInput);
   }
+
+  getProgressPercentageCourse(userName: string, courseId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8080/courses/${courseId}/course-progress/${userName}`);
+  }
 }

@@ -8,6 +8,7 @@ import {CodelabService} from '../../services/codelab.service';
 import {SubmoduleService} from '../../services/submodule.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RoleService} from '../../services/role-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 
 declare var bootstrap: any;
 
@@ -27,18 +28,22 @@ export class CodelabsOverviewComponent implements OnInit {
   editedSubmoduleTitle: string = '';
   loading: boolean = true;
   isCoach: boolean = false;
+  userName: string = '';
+  submoduleProgress: number = 0;
 
   constructor(
     private router: Router,
     private codelabService: CodelabService,
     private subService: SubmoduleService,
     private route: ActivatedRoute,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private keyCloakService: KeycloakServiceService
   ) {}
 
   ngOnInit() {
     this.isCoach = this.roleService.isCoach();
     this.submoduleId = Number(this.route.snapshot.params['id']);
+    this.userName = this.keyCloakService.getTokenUserName();
     this.subService.getSubmodule(this.submoduleId).subscribe(
       (submodule) => {
         this.submoduleTitle = submodule.title;
@@ -51,6 +56,14 @@ export class CodelabsOverviewComponent implements OnInit {
       console.log('Filtered Codelabs for Submodule ID:', this.submoduleId);
       console.log(this.codelabs);
     });
+
+    this.subService.getProgressPercentageSubmodule(this.userName,this.submoduleId).subscribe({
+      next: progress => {
+        this.submoduleProgress = progress;
+        console.log(`successfully fethced and initialized submodule progress: ${progress} percent`)
+      },
+      error: err => console.error(`Failed to fetch and initialize submodule progress: ${err}`)
+    })
   }
 
   editCodelab(id: number) {

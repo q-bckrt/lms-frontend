@@ -13,6 +13,11 @@
         </div>
       </div>
 
+    <div *ngIf="!isCoach">
+      <label for="disk_d" class="fw-medium"> course progress </label>
+      <br>
+      <meter id="disk_d" value="{{courseProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
+    </div>
 
     <h4 *ngIf="!loading && modules.length===0"> There are no modules available for this course yet</h4>
 

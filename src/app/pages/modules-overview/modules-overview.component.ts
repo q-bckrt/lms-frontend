@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
 import {FormsModule} from '@angular/forms';
 import {RoleService} from '../../services/role-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 
 declare var bootstrap: any;
 
@@ -32,18 +33,22 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
   selectedModuleId!: number;
   loading: boolean = true;
   isCoach: boolean = false;
+  courseProgress: number = 0;
+  userName: string = ''
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private keycloakService: KeycloakServiceService
   ) { }
 
   ngOnInit() {
     this.courseId = Number(this.route.snapshot.paramMap.get('id'));
     this.isCoach = this.roleService.isCoach()
+    this.userName = this.keycloakService.getTokenUserName();
 
     // fetch both the course and the full module list in parallel
     forkJoin({
@@ -58,6 +63,15 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
       );
       this.loading=false
     });
+
+    this.courseService.getProgressPercentageCourse(this.userName,this.courseId).subscribe({
+      next: progress => {
+        this.courseProgress = progress
+        console.log(`course progress set successfully: ${progress} percent`)
+      },
+      error: err => console.error("failed to fetch course progress")
+    })
+
   }
 
   ngAfterViewInit(): void {

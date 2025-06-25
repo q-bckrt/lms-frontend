@@ -30,4 +30,8 @@ export class SubmoduleService {
     return this.http.put(`http://localhost:8080/submodules/${submoduleId}`, submoduleInput);
   }
 
+  getProgressPercentageSubmodule(userName: string, submoduleId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8080/submodules/${submoduleId}/submodule-progress/${userName}`);
+  }
+
 }

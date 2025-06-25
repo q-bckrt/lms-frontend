@@ -11,6 +11,12 @@
       </div>
     </div>
 
+    <div *ngIf="!isCoach">
+      <label for="disk_d" class="fw-medium"> submodule progress </label>
+      <br>
+      <meter id="disk_d" value="{{submoduleProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
+    </div>
+
     <h4 *ngIf="!loading && codelabs.length===0"> There are no codelabs available for this submodule yet </h4>
 
     <div *ngFor="let codelab of codelabs" class="card bg-light mb-3 w-100">
