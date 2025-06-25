@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { KeycloakServiceService} from './keycloak/keycloak-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +8,7 @@ import { KeycloakServiceService} from './keycloak/keycloak-service.service';
 export class SubmoduleService {
 
   constructor(
-    private http: HttpClient,
-    private keycloakService: KeycloakServiceService
+    private http: HttpClient
   ) { }
 
   // Later we should make sure it's added to a course immediately after creation
