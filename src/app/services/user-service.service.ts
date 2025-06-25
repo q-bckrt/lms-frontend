@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {classOverviewModel} from '../models/classOverviewModel';
 import {progressUserListModel} from '../models/progressUserListModel';
+import {overviewProgressCoach} from '../models/overviewProgressCoach';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,10 @@ export class UserService {
 
   getProgressCodelabsPerUser(username: string): Observable<progressUserListModel> {
     return this.http.get<progressUserListModel>(`${this.apiUrl}/${username}/codelabs-progress-overview`);
+  }
+
+  getOverviewAllStudentsForCoach(username: string): Observable<overviewProgressCoach> {
+    return this.http.get<overviewProgressCoach>(`${this.apiUrl}/${username}/all-students-overview`)
   }
 
 }

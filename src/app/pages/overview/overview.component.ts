@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {CourseService} from '../../services/course.service';
 import {ClassService} from '../../services/class-service.service';
 import {progressUserListModel} from '../../models/progressUserListModel';
+import {overviewProgressCoach} from '../../models/overviewProgressCoach';
 
 @Component({
   selector: 'app-overview',
@@ -25,6 +26,7 @@ export class OverviewComponent {
   firstName = '';
   username= '';
   codelabsStudent: progressUserListModel | null=null;
+  classes: overviewProgressCoach | null=null;
 
   constructor(
     private keycloakService: KeycloakServiceService,
@@ -48,9 +50,7 @@ export class OverviewComponent {
 
           next: (progress) => {
             this.codelabsStudent = progress
-            console.log(this.username)
             console.log("successfully got the codelabs")
-            console.log(this.codelabsStudent?.progressPerUserDtoList)
           },
           error: (err) => {
             console.error('Failed to load codelabs:', err);
@@ -62,8 +62,16 @@ export class OverviewComponent {
     }
 
     if( this.roleService.isCoach()){
-      // get all class for this coach
-      // for a specific class get all
+      this.userService.getOverviewAllStudentsForCoach(this.username).subscribe({
+        next: (classes) => {
+          this.classes = classes
+          console.log("successfully got the overview for all students of all associated classes")
+        },
+        error: (err) => {
+          console.error('Failed to load overview:', err);
+          alert('Failed to load overview. Please try again later.');
+        }
+      })
     }
   }
 
