@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { NgFor } from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {ModuleService} from '../../services/module.service';
 import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
@@ -15,7 +15,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-submodules-overview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule],
+    imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule, NgIf],
   templateUrl: './submodules-overview.component.html',
   styleUrl: './submodules-overview.component.css'
 })
@@ -29,6 +29,7 @@ export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
   editedModuleTitle: string = '';
   newSubmoduleTitle: string = '';
   selectedSubmoduleId!: number;
+  loading: boolean =true;
 
   constructor(
     private router: Router,
@@ -54,6 +55,7 @@ export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
       this.submodules = allSubmodules.filter((sub: any) =>
         sub.parentModules.includes(module.id)
       );
+      this.loading=false;
     });
   }
 

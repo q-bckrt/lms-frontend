@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { NgFor } from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {ModuleService} from '../../services/module.service';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-modules-overview',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NgFor, FormsModule],
+    imports: [NavbarComponent, FooterComponent, NgFor, FormsModule, NgIf],
   templateUrl: './modules-overview.component.html',
   styleUrl: './modules-overview.component.css'
 })
@@ -29,6 +29,7 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
   editedCourseTitle: string = '';
   newModuleTitle: string = '';
   selectedModuleId!: number;
+  loading: boolean = true;
 
   constructor(
     private router: Router,
@@ -51,6 +52,7 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
       this.modules = allModules.filter((mod: any) =>
         mod.parentCourses.includes(course.id)
       );
+      this.loading=false
     });
   }
 

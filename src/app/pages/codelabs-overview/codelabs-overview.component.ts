@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { NgFor } from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {CodelabService} from '../../services/codelab.service';
 import {SubmoduleService} from '../../services/submodule.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,7 +13,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-codelabs-overview',
   standalone: true,
-  imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, ReactiveFormsModule, FormsModule],
+    imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, ReactiveFormsModule, FormsModule, NgIf],
   templateUrl: './codelabs-overview.component.html',
   styleUrl: './codelabs-overview.component.css'
 })
@@ -24,6 +24,7 @@ export class CodelabsOverviewComponent implements OnInit {
   newCodelabTitle: string = '';
   newCodelabDescription: string = '';
   editedSubmoduleTitle: string = '';
+  loading: boolean = true;
 
   constructor(
     private router: Router,
@@ -42,6 +43,7 @@ export class CodelabsOverviewComponent implements OnInit {
     );
     this.codelabService.getAllCodelabs().subscribe((codelabs) => {
       this.codelabs = codelabs.filter(codelab => codelab.parentSubmoduleId === this.submoduleId);
+      this.loading = false;
       console.log('Filtered Codelabs for Submodule ID:', this.submoduleId);
       console.log(this.codelabs);
     });
