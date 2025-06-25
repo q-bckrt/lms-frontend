@@ -66,6 +66,7 @@ export class UserService {
 
   getOverviewAllStudentsForCoach(username: string): Observable<overviewProgressCoach> {
     return this.http.get<overviewProgressCoach>(`${this.apiUrl}/${username}/all-students-overview`)
+  }
 
   setCurrentProgressLevel(userName: string, codelabId: number, progressLevel: string): Observable<boolean> {
     const params = new HttpParams().set('progressLevel', progressLevel);
@@ -74,5 +75,6 @@ export class UserService {
     return this.http.put<boolean>(`${this.apiUrl}/${userName}/edit/codelab/${codelabId}`,{},{params})
 
   }
+
 
 }
