@@ -3,19 +3,21 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { NgFor } from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {ModuleService} from '../../services/module.service';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
 import {FormsModule} from '@angular/forms';
+import {RoleService} from '../../services/role-service.service';
+import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.service';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-modules-overview',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NgFor, FormsModule],
+    imports: [NavbarComponent, FooterComponent, NgFor, FormsModule, NgIf],
   templateUrl: './modules-overview.component.html',
   styleUrl: './modules-overview.component.css'
 })
@@ -29,16 +31,24 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
   editedCourseTitle: string = '';
   newModuleTitle: string = '';
   selectedModuleId!: number;
+  loading: boolean = true;
+  isCoach: boolean = false;
+  courseProgress: number = 0;
+  userName: string = ''
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private courseService: CourseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private roleService: RoleService,
+    private keycloakService: KeycloakServiceService
   ) { }
 
   ngOnInit() {
     this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+    this.isCoach = this.roleService.isCoach()
+    this.userName = this.keycloakService.getTokenUserName();
 
     // fetch both the course and the full module list in parallel
     forkJoin({
@@ -51,7 +61,17 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
       this.modules = allModules.filter((mod: any) =>
         mod.parentCourses.includes(course.id)
       );
+      this.loading=false
     });
+
+    this.courseService.getProgressPercentageCourse(this.userName,this.courseId).subscribe({
+      next: progress => {
+        this.courseProgress = progress
+        console.log(`course progress set successfully: ${progress} percent`)
+      },
+      error: err => console.error("failed to fetch course progress")
+    })
+
   }
 
   ngAfterViewInit(): void {

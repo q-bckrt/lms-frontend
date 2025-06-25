@@ -6,12 +6,20 @@
       <h2 class="mb-0">
         MODULE : <span class="text-body-secondary">{{ moduleTitle }}.</span>
       </h2>
-      <div>
+      <div *ngIf="isCoach">
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editModuleModal">Edit Module</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#addExistingSubmoduleModal">Add Submodule</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createSubmoduleModal">Create Submodule</button>
       </div>
     </div>
+
+    <div *ngIf="!isCoach">
+      <label for="disk_d" class="fw-medium"> module progress </label>
+      <br>
+      <meter id="disk_d" value="{{moduleProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
+    </div>
+
+    <h4 *ngIf="!loading && submodules.length===0"> There are no submodules available for this module yet</h4>
 
 
     <div class="container-fluid px-0">

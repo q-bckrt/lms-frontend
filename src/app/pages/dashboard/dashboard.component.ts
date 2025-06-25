@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private keycloakService: KeycloakServiceService,
-    private userService: UserService,
     private router: Router,
     public roleService: RoleService,
     private courseService: CourseService,

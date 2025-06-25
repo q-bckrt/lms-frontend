@@ -4,13 +4,16 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4 w-100">
       <h2 class="mb-4 fs-1 fw-bold">Welcome, {{ firstName }}.</h2>
-      <div>
+      <div *ngIf="roleService.isCoach()">
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createClassModal">Create Class</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createCourseModal">Create Course</button>
       </div>
     </div>
 
     <div *ngIf="roleService.isCoach()">
+
+      <h4 *ngIf="classes.length===0"> Not assigned to any classes </h4>
+
       <div class="accordion w-100" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -48,6 +51,9 @@
             </div>
           </div>
         </div>
+
+        <h4 *ngIf="courses.length===0"> No courses available, please create courses first </h4>
+
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -84,6 +90,9 @@
     </div>
 
     <div *ngIf="roleService.isStudent()">
+
+      <h4 *ngIf="classes.length===0"> Not enrolled in any classes </h4>
+
       <h3>My Class</h3>
       <div *ngIf="classes.length === 1" class="p-2" style="flex: 0 0 25%; max-width: 25%;">
         <div class="card border-primary h-100">

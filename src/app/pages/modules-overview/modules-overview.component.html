@@ -6,14 +6,20 @@
         <h2 class="mb-0">
           COURSE : <span class="text-body-secondary">{{ courseTitle }}.</span>
         </h2>
-        <div>
+        <div *ngIf="isCoach">
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editCourseModal">Edit Course</button>
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#addExistingModuleModal">Add Module</button>
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createModuleModal">Create Module</button>
         </div>
       </div>
 
+    <div *ngIf="!isCoach">
+      <label for="disk_d" class="fw-medium"> course progress </label>
+      <br>
+      <meter id="disk_d" value="{{courseProgress}}" min="0" max="100" style="width: 250px; height: 2rem;"></meter>
+    </div>
 
+    <h4 *ngIf="!loading && modules.length===0"> There are no modules available for this course yet</h4>
 
     <div class="container-fluid px-0">
       <div class="row">

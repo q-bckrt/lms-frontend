@@ -35,4 +35,8 @@ export class ModuleService {
   addSubmoduleToModule(moduleId: number, submoduleId: number): Observable<any> {
     return this.http.put(`http://localhost:8080/modules/${moduleId}/submodules/${submoduleId}`, {});
   }
+
+  getProgressPercentageModule(userName: string, moduleId: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8080/modules/${moduleId}/module-progress/${userName}`);
+  }
 }
