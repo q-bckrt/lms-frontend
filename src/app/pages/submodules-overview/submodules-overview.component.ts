@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
 import {SubmoduleService} from '../../services/submodule.service';
 import {FormsModule} from '@angular/forms';
+import {RoleService} from '../../services/role-service.service';
 
 declare var bootstrap: any;
 
@@ -30,16 +31,19 @@ export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
   newSubmoduleTitle: string = '';
   selectedSubmoduleId!: number;
   loading: boolean =true;
+  isCoach: boolean = true;
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private subService: SubmoduleService,
     private route: ActivatedRoute,
+    private roleService: RoleService
   ) { }
 
   ngOnInit() {
     this.moduleId = Number(this.route.snapshot.paramMap.get('id'));
+    this.isCoach = this.roleService.isCoach();
 
     // fetch both the module and the full submodule list in parallel
     forkJoin({

@@ -5,7 +5,7 @@
       <h2 class="mb-0">
         SUBMODULE : <span class="text-body-secondary">{{ submoduleTitle }}.</span>
       </h2>
-      <div>
+      <div  *ngIf="isCoach">
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editSubmoduleModal">Edit Submodule</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createCodelabModal">Create Codelab</button>
       </div>

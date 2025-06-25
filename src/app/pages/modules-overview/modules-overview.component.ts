@@ -9,6 +9,7 @@ import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import {forkJoin} from 'rxjs';
 import {FormsModule} from '@angular/forms';
+import {RoleService} from '../../services/role-service.service';
 
 declare var bootstrap: any;
 
@@ -30,16 +31,19 @@ export class ModulesOverviewComponent implements OnInit, AfterViewInit {
   newModuleTitle: string = '';
   selectedModuleId!: number;
   loading: boolean = true;
+  isCoach: boolean = false;
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private courseService: CourseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private roleService: RoleService
   ) { }
 
   ngOnInit() {
     this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+    this.isCoach = this.roleService.isCoach()
 
     // fetch both the course and the full module list in parallel
     forkJoin({

@@ -7,6 +7,7 @@ import {NgFor, NgIf} from '@angular/common';
 import {CodelabService} from '../../services/codelab.service';
 import {SubmoduleService} from '../../services/submodule.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RoleService} from '../../services/role-service.service';
 
 declare var bootstrap: any;
 
@@ -25,15 +26,18 @@ export class CodelabsOverviewComponent implements OnInit {
   newCodelabDescription: string = '';
   editedSubmoduleTitle: string = '';
   loading: boolean = true;
+  isCoach: boolean = false;
 
   constructor(
     private router: Router,
     private codelabService: CodelabService,
     private subService: SubmoduleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private roleService: RoleService
   ) {}
 
   ngOnInit() {
+    this.isCoach = this.roleService.isCoach();
     this.submoduleId = Number(this.route.snapshot.params['id']);
     this.subService.getSubmodule(this.submoduleId).subscribe(
       (submodule) => {

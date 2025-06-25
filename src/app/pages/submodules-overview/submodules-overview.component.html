@@ -6,7 +6,7 @@
       <h2 class="mb-0">
         MODULE : <span class="text-body-secondary">{{ moduleTitle }}.</span>
       </h2>
-      <div>
+      <div *ngIf="isCoach">
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editModuleModal">Edit Module</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#addExistingSubmoduleModal">Add Submodule</button>
         <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createSubmoduleModal">Create Submodule</button>

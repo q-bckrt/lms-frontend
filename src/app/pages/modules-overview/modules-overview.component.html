@@ -6,7 +6,7 @@
         <h2 class="mb-0">
           COURSE : <span class="text-body-secondary">{{ courseTitle }}.</span>
         </h2>
-        <div>
+        <div *ngIf="isCoach">
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editCourseModal">Edit Course</button>
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#addExistingModuleModal">Add Module</button>
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createModuleModal">Create Module</button>
