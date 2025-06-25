@@ -39,7 +39,7 @@ export const routes: Routes = [
 
   { path: 'modules/:id', component: ModulesOverviewComponent },
   { path: 'submodules/:id', component: SubmodulesOverviewComponent },
-  { path: 'codelabs', component: CodelabsOverviewComponent },
+  { path: 'module-codelabs/:id', component: CodelabsOverviewComponent },
 
   { path: 'modules', component: ModulesOverviewComponent },
 
@@ -47,6 +47,7 @@ export const routes: Routes = [
   { path: 'class-overview/:id', component: ClassComponent},
   // FROM CLASS OVERVIEW PASS ON USERNAME TO VIEW USER PROFILE AS COACH
   { path: 'view-profile/:userName', component: ViewProfileComponent, canActivate: [roleGuard], data: { role: 'coach' } },
+
   { path: 'codelabs', component: CodelabsOverviewComponent },
   { path: 'codelabs/:id', component: CodelabComponent },
   { path: 'codelabs/:id/comment', component: CommentComponent}

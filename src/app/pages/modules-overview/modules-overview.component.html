@@ -4,12 +4,12 @@
   <div class="content container-fluid px-4">
       <div class="d-flex justify-content-between align-items-center mb-4 w-100">
         <h2 class="mb-0">
-          Modules: <span class="text-body-secondary">{{ courseTitle }}.</span>
+          COURSE : <span class="text-body-secondary">{{ courseTitle }}.</span>
         </h2>
         <div>
           <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editCourseModal">Edit Course</button>
-          <button class="btn btn-success btn-lg m-2">Add Module</button>
-          <button class="btn btn-success btn-lg m-2">Create Module</button>
+          <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#addExistingModuleModal">Add Module</button>
+          <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createModuleModal">Create Module</button>
         </div>
       </div>
 
@@ -68,6 +68,60 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="handleUpdateCourseTitle()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal for creating a new module -->
+  <div class="modal fade" id="createModuleModal" tabindex="-1" aria-labelledby="createModuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="createModuleModalLabel">Create New Module</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <input
+            [(ngModel)]="newModuleTitle"
+            class="form-control"
+            placeholder="Module title"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleCreateNewModule()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for adding an existing module -->
+  <div #addExistingModuleModal class="modal fade" id="addExistingModuleModal" tabindex="-1" aria-labelledby="addExistingModuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="addExistingModuleModalLabel">Add Existing Module</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div>
+          <label for="course" class="form-label mt-4">Select Module</label>
+          <select class="form-select" id="course" [(ngModel)]="selectedModuleId" name="course" required>
+            <option *ngFor="let module of extModules" [value]="module.id">{{ module.title }}</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleAddExistingModule()">Save changes</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
 

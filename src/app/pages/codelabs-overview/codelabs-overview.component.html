@@ -1,15 +1,86 @@
 <main class="overview-page">
   <app-navbar></app-navbar>
   <div class="content">
-    <h2>Codelabs Overview </h2>
+    <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+      <h2 class="mb-0">
+        SUBMODULE : <span class="text-body-secondary">{{ submoduleTitle }}.</span>
+      </h2>
+      <div>
+        <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#editSubmoduleModal">Edit Submodule</button>
+        <button class="btn btn-success btn-lg m-2" data-bs-toggle="modal" data-bs-target="#createCodelabModal">Create Codelab</button>
+      </div>
+    </div>
 
     <div *ngFor="let codelab of codelabs" class="card bg-light mb-3 w-100">
       <div class="card-body d-flex justify-content-between align-items-center">
-        <span>{{ codelab.name }}</span>
+        <span>{{ codelab.title }}</span>
         <app-button text="Edit" (clicked)="editCodelab(codelab.id)"></app-button>
       </div>
     </div>
 
   </div>
+
+  <!-- Modal for creating a new submodule -->
+  <div class="modal fade" id="createCodelabModal" tabindex="-1" aria-labelledby="createCodelabModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="createCodelabModalLabel">Create New Codelab</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <label for="codelabTitle">Title</label>
+          <input
+            id="codelabTitle"
+            [(ngModel)]="newCodelabTitle"
+            class="form-control"
+            placeholder="Codelab title"
+          />
+
+          <div>
+            <label for="exampleTextarea" class="form-label mt-4">Description</label>
+            <textarea [(ngModel)]="newCodelabDescription" class="form-control" id="exampleTextarea" rows="3"></textarea>
+          </div>
+        </div>
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleCreateNewCodelab()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for editing submodule title -->
+  <div class="modal fade" id="editSubmoduleModal" tabindex="-1" aria-labelledby="editSubmoduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="editSubmoduleModalLabel">Edit Submodule Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <input
+            [(ngModel)]="editedSubmoduleTitle"
+            class="form-control"
+            placeholder="Course title"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="handleUpdateSubmoduleTitle()">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <app-footer></app-footer>
 </main>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -19,17 +19,22 @@ declare var bootstrap: any;
   templateUrl: './submodules-overview.component.html',
   styleUrl: './submodules-overview.component.css'
 })
-export class SubmodulesOverviewComponent implements OnInit {
+export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
+  @ViewChild('addExistingSubmoduleModal') modalElement!: ElementRef;
+
   submodules: Array<{ id: number; title: string }> = [];
+  extSubmodules: Array<{ id: number; title: string }> = [];
   moduleId!: number;
   moduleTitle: string = '';
   editedModuleTitle: string = '';
+  newSubmoduleTitle: string = '';
+  selectedSubmoduleId!: number;
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private subService: SubmoduleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -42,14 +47,30 @@ export class SubmodulesOverviewComponent implements OnInit {
     }).subscribe(({ module, allSubmodules }) => {
       console.log(allSubmodules);
       console.log(module.id);
+      console.log('Module ID:', module.id);
+      console.log('FIRST submodule object:', allSubmodules[0]);  // <--- THIS
       this.moduleTitle = module.title;
-      // filter down to only the modules linked to this course
+      // filter down to only the modules linked to this module
       this.submodules = allSubmodules.filter((sub: any) =>
         sub.parentModules.includes(module.id)
       );
     });
+  }
 
+  ngAfterViewInit() {
+    const modal = this.modalElement.nativeElement;
+    modal.addEventListener('shown.bs.modal', () => {
+      this.onModalOpened();
+    });
+  }
 
+  onModalOpened(): void {
+    console.log('Modal opened!');
+    this.subService.getAllSubmodules().subscribe(submodules => {
+      console.log(submodules);
+      this.extSubmodules = submodules.filter((sub: any) => !this.submodules.some(m => m.id === sub.id));
+      console.log("extSubmodules:", this.extSubmodules);
+    })
   }
 
   handleUpdateModuleTitle() {
@@ -62,6 +83,43 @@ export class SubmodulesOverviewComponent implements OnInit {
 
       console.log("Module title updated");
     });
+  }
+
+  handleCreateNewSubmodule() {
+    this.subService.createSubmodule({title: this.newSubmoduleTitle}).subscribe((response) => {
+      console.log('New Submodule created:', response);
+
+      this.moduleService.addSubmoduleToModule(this.moduleId, response.id).subscribe(() => {
+
+        const modalEl = document.getElementById('createSubmoduleModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        modalInstance?.hide();
+
+        console.log("New submodule created");
+        // refresh the submodule list
+        this.subService.getAllSubmodules().subscribe(submodules => {
+          this.submodules = submodules.filter((sub: any) =>
+            sub.parentModules.includes(this.moduleId)
+          );
+        });
+      });
+    });
+  }
+
+  handleAddExistingSubmodule() {
+    this.moduleService.addSubmoduleToModule(this.moduleId, this.selectedSubmoduleId).subscribe(() => {
+      console.log('Submodule added to course');
+      // refresh the submodule list
+      this.subService.getAllSubmodules().subscribe(submodules => {
+        this.submodules = submodules.filter((sub: any) =>
+          sub.parentModules.includes(this.moduleId)
+        );
+      });
+
+      const modalEl = document.getElementById('addExistingSubmoduleModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+    })
   }
 
   goTo(path: string) {
