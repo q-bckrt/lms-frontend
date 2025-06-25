@@ -4,14 +4,18 @@ import {KeycloakServiceService} from '../../services/keycloak/keycloak-service.s
 import {ActivatedRoute} from '@angular/router';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
+import {ButtonComponent} from '../../components/button/button.component';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-view-profile',
   imports: [
     FooterComponent,
     NavbarComponent,
-    NgForOf
+    NgForOf,
+    FormsModule,
+    NgIf
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.css'

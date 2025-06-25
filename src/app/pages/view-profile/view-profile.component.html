@@ -10,25 +10,36 @@
 
         <div class="card bg-light mb-3">
           <div class="card-body">
+            <h5 class="card-title">Display Name</h5>
             <p class="card-text">{{ displayName }}</p>
           </div>
         </div>
 
         <div class="card bg-light mb-3">
           <div class="card-body">
+            <h5 class="card-title">Email</h5>
             <p class="card-text">{{ email }}</p>
           </div>
         </div>
 
         <div class="card bg-light mb-3">
-          <div class="card-body" *ngFor="let curClass of classes">
-            <p class="card-text">{{ curClass?.title || 'No assigned classes' }}</p>
+          <div class="card-body">
+
+            <ng-container *ngIf="classes?.length; else noClass">
+              <h5 class="card-title">Assigned Classes</h5>
+              <ul class="list-unstyled mb-0">
+                <li *ngFor="let cls of classes">{{ cls.title }}</li>
+              </ul>
+            </ng-container>
+
+            <ng-template #noClass>
+              <p class="card-text text-muted">No assigned classes</p>
+            </ng-template>
+
           </div>
         </div>
-
       </div>
     </div>
     <app-footer></app-footer>
   </div>
-
 </main>
