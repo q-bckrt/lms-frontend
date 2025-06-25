@@ -110,6 +110,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goToEdit() {
-    this.router.navigate(['/edit']);
+    this.router.navigate(['/edit-profile']);
   }
 }

@@ -18,10 +18,10 @@ declare var bootstrap: any;
   selector: 'app-submodules-overview',
   standalone: true,
     imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, FormsModule, NgIf],
-  templateUrl: './submodules-overview.component.html',
-  styleUrl: './submodules-overview.component.css'
+  templateUrl: './module.component.html',
+  styleUrl: './module.component.css'
 })
-export class SubmodulesOverviewComponent implements OnInit, AfterViewInit {
+export class ModuleComponent implements OnInit, AfterViewInit {
   @ViewChild('addExistingSubmoduleModal') modalElement!: ElementRef;
 
   submodules: Array<{ id: number; title: string }> = [];

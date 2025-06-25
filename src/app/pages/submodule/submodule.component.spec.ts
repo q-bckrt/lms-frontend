@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CodelabsOverviewComponent } from './codelabs-overview.component';
+import { SubmoduleComponent } from './submodule.component';
 
 describe('CodelabsOverviewComponent', () => {
-  let component: CodelabsOverviewComponent;
-  let fixture: ComponentFixture<CodelabsOverviewComponent>;
+  let component: SubmoduleComponent;
+  let fixture: ComponentFixture<SubmoduleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CodelabsOverviewComponent]
+      imports: [SubmoduleComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CodelabsOverviewComponent);
+    fixture = TestBed.createComponent(SubmoduleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

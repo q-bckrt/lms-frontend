@@ -20,7 +20,7 @@
             {{ classOverview.courseTitle }}
           </div>
           <!--      PATH WILL CHANGE WITH ROUTES REFACTORING!!! IT WILL BE NAMES /course/courseId !!!!! (or something like it!!!)-->
-          <button (click)="goTo('modules/'+selectedClassOverview.courseId)" class="btn btn-primary btn-sm"> see course</button>
+          <button (click)="goTo('courses/'+selectedClassOverview.courseId)" class="btn btn-primary btn-sm"> see course</button>
         </div>
 
         <div  *ngIf="selectedClassOverview.courseTitle===null" class="d-flex align-items-center gap-2 mt-2">
@@ -64,7 +64,7 @@
             <h6 class="mt-2">{{ student.displayName }}</h6>
 
             <div *ngIf="isUserCoach" class="mt-2">
-              <button (click)="goTo('view-profile/' + student.userName)"
+              <button (click)="goTo('view-student-profile/' + student.userName)"
                       class="btn btn-primary btn-sm">profile
               </button>
             </div>

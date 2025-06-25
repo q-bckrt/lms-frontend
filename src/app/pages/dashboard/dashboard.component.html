@@ -81,7 +81,7 @@
                     <div class="card-body">
                       <h4 class="card-title">{{ course.title }}</h4>
                       <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" (click)="goTo('/modules/' + course.id)">
+                        <button type="button" class="btn btn-primary" (click)="goTo('/courses/' + course.id)">
                           Open
                         </button>
                       </div>
@@ -132,7 +132,7 @@
           <div class="card-body">
             <h4 class="card-title">{{ courseStudent.title }}</h4>
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-primary" (click)="goTo('modules/' + courseStudent.id)">
+              <button type="button" class="btn btn-primary" (click)="goTo('courses/' + courseStudent.id)">
                 Open
               </button>
             </div>

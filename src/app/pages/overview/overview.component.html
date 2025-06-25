@@ -38,7 +38,7 @@
             <div class="accordion w-100" [attr.id]="'accordionExample' + i">
               <div class="accordion-item">
                 <h2 class="accordion-header" [attr.id]="'heading' + i">
-                  <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">>
+                  <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
                     {{classDomain.title}}
                   </button>
                 </h2>
@@ -61,7 +61,7 @@
                               <h4 class="card-title mb-0">{{ student.displayName }}</h4>
                               <button type="button"
                                       class="btn btn-success"
-                                      (click)="goTo('view-profile/' + student.username)">
+                                      (click)="goTo('view-student-profile/' + student.username)">
                                 Open
                               </button>
                             </div>

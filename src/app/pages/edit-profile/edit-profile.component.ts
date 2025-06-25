@@ -11,10 +11,10 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-edit',
   standalone: true,
   imports: [NavbarComponent, ButtonComponent, FooterComponent, FormsModule],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css'
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.css'
 })
-export class EditComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
   username = '';
   formData = {
     displayName: '',
@@ -58,6 +58,8 @@ export class EditComponent implements OnInit {
       displayName: this.formData.displayName,
       password: this.formData.password
     };
+
+    console.log(updatePayload)
 
     this.userService.updateUserProfile(this.username, updatePayload).subscribe({
       next: () => {

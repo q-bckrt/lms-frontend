@@ -16,10 +16,10 @@ declare var bootstrap: any;
   selector: 'app-codelabs-overview',
   standalone: true,
     imports: [NavbarComponent, ButtonComponent, FooterComponent, NgFor, ReactiveFormsModule, FormsModule, NgIf],
-  templateUrl: './codelabs-overview.component.html',
-  styleUrl: './codelabs-overview.component.css'
+  templateUrl: './submodule.component.html',
+  styleUrl: './submodule.component.css'
 })
-export class CodelabsOverviewComponent implements OnInit {
+export class SubmoduleComponent implements OnInit {
   codelabs: Array<{ id: number; title: string }> = [];
   submoduleId!: number;
   submoduleTitle: string = '';

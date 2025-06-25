@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {CommonModule} from '@angular/common';
@@ -21,7 +21,7 @@ import {overviewProgressCoach} from '../../models/overviewProgressCoach';
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit{
   userRole = '';
   firstName = '';
   username= '';
@@ -32,9 +32,7 @@ export class OverviewComponent {
     private keycloakService: KeycloakServiceService,
     private userService: UserService,
     private router: Router,
-    public roleService: RoleService,
-    private courseService: CourseService,
-    private classService: ClassService
+    public roleService: RoleService
   ) {}
 
   ngOnInit(): void {
@@ -96,11 +94,5 @@ export class OverviewComponent {
     console.log('Button clicked');
     this.router.navigate([path]);
   }
-
-  students = [
-    { name: 'Alice', completedCodelabs: 3, totalCodelabs: 8 },
-    { name: 'Bob', completedCodelabs: 5, totalCodelabs: 8 },
-    { name: 'Charlie', completedCodelabs: 8, totalCodelabs: 8 }
-  ];
 
 }

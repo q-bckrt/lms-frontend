@@ -18,10 +18,10 @@ declare var bootstrap: any;
   selector: 'app-modules-overview',
   standalone: true,
     imports: [NavbarComponent, FooterComponent, NgFor, FormsModule, NgIf],
-  templateUrl: './modules-overview.component.html',
-  styleUrl: './modules-overview.component.css'
+  templateUrl: './course.component.html',
+  styleUrl: './course.component.css'
 })
-export class ModulesOverviewComponent implements OnInit, AfterViewInit {
+export class CourseComponent implements OnInit, AfterViewInit {
   @ViewChild('addExistingModuleModal') modalElement!: ElementRef;
 
   modules: Array<{ id: number; title: string }> = [];
