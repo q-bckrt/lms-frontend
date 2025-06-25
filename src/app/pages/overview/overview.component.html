@@ -1,61 +1,96 @@
 <main>
   <div class="overview-page">
     <app-navbar></app-navbar>
+    <div class="content w-100 px-4">
+      <div class="content container mt-4">
 
-    <div class="content container mt-4">
+        <!-- STUDENT VIEW -->
 
-      <!-- STUDENT VIEW -->
-      <div *ngIf="userRole === 'student'">
-        <div class="d-flex flex-wrap gap-4 justify-content-start">
-          <div class="card bg-light" style="width: 20rem;" *ngFor="let card of cards">
-            <div class="card-header">
-              {{ card.header }}
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item px-3 py-2" *ngFor="let codelab of card.codelabs | keyvalue">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span>{{ codelab.value }}</span>
-                  <select class="form-select form-select-sm w-auto ms-2">
-                    <option value="not-started">Not Started</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="done">Done</option>
-                  </select>
+        <div *ngIf="userRole === 'student' && codelabsStudent">
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let codelab of codelabsStudent.progressPerUserDtoList" class="p-2" style="flex: 0 0 25%; max-width: 25%;">
+              <div class="card border-primary h-100">
+                <div class="card-header d-flex align-items-center bg-light">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"  class="me-2"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                    <path d="M12 4.5L2 9.5L12 14.5L22 9.5L12 4.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M19 11V16L12 19.5L5 16V11" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M22 14V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                  </svg>
+                  <strong class="text-body-secondary">Codelab</strong>
                 </div>
-              </li>
-            </ul>
+                <div class="card-body">
+                  <h4 class="card-title">{{ codelab.codelabTitle }}</h4>
+                  <h5 class="card-text fs-6">{{ codelab.progressLevel.toLowerCase().replaceAll("_", " ")}}</h5>
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" (click)="goTo('codelabs/' + codelab.codelabId)">
+                      Open
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- COACH VIEW -->
-      <div *ngIf="userRole === 'coach'">
 
-        <div class="d-flex flex-column gap-4">
-          <div class="card bg-light" *ngFor="let student of students">
-            <div class="card-header">
-              {{ student.name }}
-            </div>
-            <div class="card-body">
-              <p class="mb-2">
-                {{ student.completedCodelabs }} / {{ student.totalCodelabs }} Codelabs Completed
-              </p>
-              <div class="progress">
-                <div
-                  class="progress-bar"
-                  role="progressbar"
-                  [style.width.%]="(student.completedCodelabs / student.totalCodelabs) * 100"
-                  [attr.aria-valuenow]="student.completedCodelabs"
-                  aria-valuemin="0"
-                  [attr.aria-valuemax]="student.totalCodelabs"
-                ></div>
+        <!-- COACH VIEW -->
+        <div *ngIf="userRole === 'coach' && classes">
+          <div *ngFor="let classDomain of classes.classes; let i = index" >
+            <div class="accordion w-100" [attr.id]="'accordionExample' + i">
+              <div class="accordion-item">
+                <h2 class="accordion-header" [attr.id]="'heading' + i">
+                  <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">>
+                    {{classDomain.title}}
+                  </button>
+                </h2>
+                <div [attr.id]="'collapse' + i" class="accordion-collapse collapse show" [attr.aria-labelledby]="'heading' + i" [attr.data-bs-parent]="'#accordionExample' + i">
+                  <div class="accordion-body px-0">
+                    <div class="d-flex flex-wrap w-100">
+
+                      <!--              NG FOR START-->
+                      <div *ngFor="let student of classDomain.students;let j = index" class="p-2" style="flex: 0 0 25%; max-width: 25%;">
+                        <div class="card border-primary h-100">
+                          <div class="card-header d-flex align-items-center bg-light">
+                            <svg viewBox="0 0 24 24" width="20" height="20"  fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                              <circle cx="12" cy="7" r="4" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                              <path d="M4 21V17C4 15.8954 4.89543 15 6 15H18C19.1046 15 20 15.8954 20 17V21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                            </svg>
+                            <strong class="text-body-secondary">Student</strong>
+                          </div>
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <h4 class="card-title mb-0">{{ student.displayName }}</h4>
+                              <button type="button"
+                                      class="btn btn-success"
+                                      (click)="goTo('view-profile/' + student.username)">
+                                Open
+                              </button>
+                            </div>
+                            <div class="mt-2">
+                              <label [attr.for]="'disk_d_' + i + '_' + j" class="me-2 fs-5">Progress:</label>
+                              <meter [attr.id]="'disk_d_' + i + '_' + j"
+                                     min="0"
+                                     max="100"
+                                     [attr.value]="student.percentageDone"
+                                     style="width: 100%; height: 1.5rem;">
+                                {{ student.percentageDone }}
+                              </meter>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--              NG FOR END-->
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <app-footer></app-footer>
   </div>
 </main>
+

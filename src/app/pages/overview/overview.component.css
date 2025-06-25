@@ -13,16 +13,23 @@ html, body {
 }
 
 /* Modify your existing .content rule */
+/*.content {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  flex: 1;*/
+/*  padding: 20px;*/
+/*  box-sizing: border-box;*/
+/*}*/
 .content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+  align-items: stretch;
+  justify-content: flex-start;
   padding: 20px;
-  box-sizing: border-box;
 }
-
 /* Ensure navbar and footer don't shrink */
 app-navbar,
 app-footer {
@@ -36,4 +43,14 @@ app-footer {
   padding: 30px;
   box-sizing: border-box;
 }
+
+.accordion-body {
+  width: 100%;
+}
+
+.accordion-body .row {
+  width: 100%;
+  margin: 0;
+}
+
 
