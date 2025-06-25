@@ -102,7 +102,11 @@ export class CodelabComponent implements OnInit {
 
   private loadComments(id: number): void {
     this.codelabService.getCodelabComments(id).subscribe({
-      next: (comments) => this.comments = comments,
+      next: (comments) => {
+        this.comments = comments.sort((a, b) =>
+          new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
+        );
+      },
       error: (err) => {
         console.error('Error loading comments:', err);
       }
