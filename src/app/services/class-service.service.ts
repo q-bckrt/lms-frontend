@@ -8,7 +8,7 @@ import {classModel} from '../models/classModel';
 })
 export class ClassService {
 
-  private apiUrl = 'http://localhost:8080/classes';
+  private apiUrl = process.env['BASE_URL'] + '/classes';
 
   constructor(
     private http: HttpClient) {}

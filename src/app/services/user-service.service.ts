@@ -9,7 +9,8 @@ import {overviewProgressCoach} from '../models/overviewProgressCoach';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/users';
+
+  private apiUrl = process.env['BASE_URL'] + '/users';
 
   constructor(private http: HttpClient) {}
 

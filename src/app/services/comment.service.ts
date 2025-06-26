@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommentService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = process.env['BASE_URL'];
 
 
   constructor(private http: HttpClient) { }

@@ -9,6 +9,8 @@ import { KeycloakServiceService} from './keycloak/keycloak-service.service';
 })
 export class ModuleService {
 
+  private baseUrl = process.env['BASE_URL'] + '/modules';
+
   constructor(
     private http: HttpClient,
     private keycloakService: KeycloakServiceService
@@ -17,26 +19,26 @@ export class ModuleService {
   createModule(module: { title: string }): Observable<any> {
 
 
-    return this.http.post('http://localhost:8080/modules', module);
+    return this.http.post(`${this.baseUrl}`, module);
   }
 
   getAllModules(): Observable<Array<{ id: number; title: string }>> {
-    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/modules');
+    return this.http.get<Array<{ id: number; title: string }>>(`${this.baseUrl}`);
   }
 
   getOneModule(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/modules/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   updateModuleTitle(moduleId: number, moduleInput: { title: string }): Observable<any> {
-    return this.http.put(`http://localhost:8080/modules/${moduleId}`, moduleInput);
+    return this.http.put(`${this.baseUrl}/${moduleId}`, moduleInput);
   }
 
   addSubmoduleToModule(moduleId: number, submoduleId: number): Observable<any> {
-    return this.http.put(`http://localhost:8080/modules/${moduleId}/submodules/${submoduleId}`, {});
+    return this.http.put(`${this.baseUrl}/${moduleId}/submodules/${submoduleId}`, {});
   }
 
   getProgressPercentageModule(userName: string, moduleId: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:8080/modules/${moduleId}/module-progress/${userName}`);
+    return this.http.get<number>(`${this.baseUrl}/${moduleId}/module-progress/${userName}`);
   }
 }

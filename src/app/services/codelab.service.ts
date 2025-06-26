@@ -22,7 +22,7 @@ export interface CodelabComment {
   providedIn: 'root'
 })
 export class CodelabService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = process.env['BASE_URL'];
 
   constructor(private http: HttpClient) {
   }

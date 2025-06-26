@@ -7,29 +7,31 @@ import { Observable } from 'rxjs';
 })
 export class SubmoduleService {
 
+  private baseUrl = process.env['BASE_URL'] + '/submodules';
+
   constructor(
     private http: HttpClient
   ) { }
 
   // Later we should make sure it's added to a course immediately after creation
   createSubmodule(module: { title: string }): Observable<any> {
-    return this.http.post('http://localhost:8080/submodules', module);
+    return this.http.post(`${this.baseUrl}`, module);
   }
 
   getAllSubmodules(): Observable<Array<{ id: number; title: string }>> {
-    return this.http.get<Array<{ id: number; title: string }>>('http://localhost:8080/submodules');
+    return this.http.get<Array<{ id: number; title: string }>>(`${this.baseUrl}`);
   }
 
   getSubmodule(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/submodules/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   updateSubmoduleTitle(submoduleId: number, submoduleInput: { title: string }): Observable<any> {
-    return this.http.put(`http://localhost:8080/submodules/${submoduleId}`, submoduleInput);
+    return this.http.put(`${this.baseUrl}/${submoduleId}`, submoduleInput);
   }
 
   getProgressPercentageSubmodule(userName: string, submoduleId: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:8080/submodules/${submoduleId}/submodule-progress/${userName}`);
+    return this.http.get<number>(`${this.baseUrl}/${submoduleId}/submodule-progress/${userName}`);
   }
 
 }
