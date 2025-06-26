@@ -5,7 +5,6 @@ import {ActivatedRoute} from '@angular/router';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {NgForOf, NgIf} from '@angular/common';
-import {ButtonComponent} from '../../components/button/button.component';
 import {FormsModule} from '@angular/forms';
 
 @Component({
