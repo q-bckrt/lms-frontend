@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {KeycloakTokenResponse} from './keycloak-token-response';
+import {environment} from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,6 @@ export class HttpKeycloakService {
   }
 
   register(registerData: any) {
-    return this.httpClient.post("http://localhost:8080/users", registerData, this.jsonHttpOptions);
+    return this.httpClient.post(`${environment.BASE_URL}/users`, registerData, this.jsonHttpOptions);
   }
 }
