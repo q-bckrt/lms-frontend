@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {environment} from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubmoduleService {
 
-  private baseUrl = process.env['BASE_URL'] + '/submodules';
+  private baseUrl = environment.BASE_URL + '/submodules';
 
   constructor(
     private http: HttpClient

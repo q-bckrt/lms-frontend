@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {progressPerUser} from '../models/progressPerUser';
+import {environment} from '../../environment/environment';
 
 export interface Codelab {
   id: number;
@@ -22,7 +23,7 @@ export interface CodelabComment {
   providedIn: 'root'
 })
 export class CodelabService {
-  private baseUrl = process.env['BASE_URL'];
+  private baseUrl = environment.BASE_URL;
 
   constructor(private http: HttpClient) {
   }

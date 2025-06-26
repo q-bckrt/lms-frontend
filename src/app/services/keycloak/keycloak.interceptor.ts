@@ -1,10 +1,11 @@
 import {HttpInterceptorFn} from '@angular/common/http';
 import {inject} from '@angular/core';
 import {KeycloakServiceService} from './keycloak-service.service';
+import {environment} from '../../../environment/environment';
 
 export const keycloakInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const baseUrl = process.env['BASE_URL'];
+  const baseUrl = environment.BASE_URL;
 
   // Skip interceptor for Keycloak login endpoint
   if (req.url.includes('keycloak.switchfully.com/realms/java-2025-03/protocol/openid-connect/token')) {

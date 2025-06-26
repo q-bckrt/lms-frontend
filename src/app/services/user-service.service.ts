@@ -4,13 +4,14 @@ import {map, Observable} from 'rxjs';
 import {classOverviewModel} from '../models/classOverviewModel';
 import {progressUserListModel} from '../models/progressUserListModel';
 import {overviewProgressCoach} from '../models/overviewProgressCoach';
+import {environment} from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private apiUrl = process.env['BASE_URL'] + '/users';
+  private apiUrl = environment.BASE_URL + '/users';
 
   constructor(private http: HttpClient) {}
 

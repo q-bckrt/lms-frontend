@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {environment} from '../../environment/environment';
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ModuleService {
 
-  private baseUrl = process.env['BASE_URL'] + '/modules';
+  private baseUrl = environment.BASE_URL + '/modules';
 
   constructor(
     private http: HttpClient
