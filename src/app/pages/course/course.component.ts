@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ButtonComponent } from '../../components/button/button.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import {NgFor, NgIf} from '@angular/common';
 import {ModuleService} from '../../services/module.service';
