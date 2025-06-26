@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { KeycloakServiceService} from './keycloak/keycloak-service.service';
 
 
 @Injectable({
@@ -12,8 +11,7 @@ export class ModuleService {
   private baseUrl = process.env['BASE_URL'] + '/modules';
 
   constructor(
-    private http: HttpClient,
-    private keycloakService: KeycloakServiceService
+    private http: HttpClient
   ) { }
 
   createModule(module: { title: string }): Observable<any> {

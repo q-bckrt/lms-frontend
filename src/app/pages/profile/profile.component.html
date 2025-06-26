@@ -38,7 +38,7 @@
 
         <ng-container *ngIf="ready">
           <h5 *ngIf="role === 'coach' && availableClasses.length===0 "> You are already assigned to all existing classes </h5>
-          <div class="card bg-light mb-3" *ngIf="(role === 'coach' || (role === 'student' && classes.length === 0)) && availableClasses.length > classes.length">
+          <div class="card bg-light mb-3" *ngIf="(role === 'coach' || (role === 'student' && classes.length === 0)) && availableClasses.length!=0">
             <div class="card-body">
               <h5 class="card-title">Assign a Class</h5>
               <label for="classSelect" class="form-label">Select a class to assign:</label>

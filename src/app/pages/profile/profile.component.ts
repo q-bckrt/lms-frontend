@@ -84,6 +84,8 @@ export class ProfileComponent implements OnInit {
     this.classService.findAllClasses().subscribe({
       next: (classes) => {
         this.availableClasses = classes.filter((curClass: any) => !this.classes.some(c => c.id === curClass.id));
+        console.log(this.availableClasses)
+        console.log(this.ready)
       },
       error: (err) => {
         console.error('Failed to load class list:', err);
@@ -100,7 +102,9 @@ export class ProfileComponent implements OnInit {
           console.log('Class assigned:', res);
           alert('Class assigned successfully!');
           this.classes = res.classes;
-        },
+          this.availableClasses = this.availableClasses.filter(c => c.id !== this.selectedClassId);
+          this.ngOnInit()
+          },
         error: (err) => {
           console.error('Failed to assign class:', err);
           alert('Failed to assign class. Please try again.')
