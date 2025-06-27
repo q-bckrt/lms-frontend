@@ -17,27 +17,34 @@ Reusable UI building blocks:
 #### `guards/`
 Contains route guards used to control access based on roles or authentication status:
 - `role-guard.guard.ts` – Implements role-based access control logic.
-- `role-guard.guard.spec.ts` – Unit tests for the role guard.
+
+#### `models/`
+TypeScript interfaces used throughout the app:
+- Interfaces for classes, user profiles, codelab progress, and other core entities.
 
 #### `pages/`
-Contains the main application views and functional page modules:
+Feature-based folders representing main views and page modules:
 - **`class/`** – Class-related views.
-- **`codelabs-overview/`**, **`modules-overview/`**, **`courses-overview/`** – Overview pages for different resources.
-- **`create-class/`**, **`create-module/`**, **`create-course/`**, **`create-codelab/`** – Pages for resource creation.
-- **`dashboard/`** – Main dashboard for logged-in users.
-- **`edit/`** – Profile or resource editing views.
+- **`codelab/`** – Views for codelab creation and interaction.
+- **`course/`** – Course creation, editing, and overview.
+- **`dashboard/`** – Main user dashboard.
+- **`edit-profile/`** – Profile editing functionality.
 - **`home/`** – Public homepage.
-- **`login/`** – Login screen.
-- **`profile/`** – User profile page.
-- **`register/`** – User registration page.
-- **`overview/`** – General overview or catch-all UI.
+- **`login/`** – User login page.
+- **`module/`** – Module management and views.
+- **`overview/`** – Generic overviews and resource listings.
+- **`profile/`** – User profile display.
+- **`register/`** – User registration interface.
+- **`submodule/`** – Submodule creation and editing.
+- **`view-profile/`** – Read-only user profile display.
+
 
 #### `services/`
 Business logic, HTTP communication, and external integration:
 - **Authentication and Authorization**
   - `role-service.service.ts` – Handles role-based access operations.
-- **User and Course Management**
-  - `user-service.service.ts`, `course-service.service.ts`, `module-service.service.ts` – Core service files for respective domains.
+- **Domain Services**
+  - `user-service.service.ts`, `course.service.ts`, `module.service.ts`, `submodule.service.ts`, `class-service.service.ts`, `codelab.service.ts`, `comment.service.ts` – Manage respective domain operations.
 - **Keycloak Integration (`keycloak/`)**
   - `keycloak-service.service.ts`, `http-keycloak.service.ts` – Custom Keycloak logic.
   - `keycloak.interceptor.ts` – HTTP interceptor to attach tokens.
@@ -54,6 +61,7 @@ Business logic, HTTP communication, and external integration:
 - Guards enforce role-based access to routes.
 
 ## Styling
-- Styles are mostly scoped at the component level using Angular's encapsulation.
-- Global styles are placed in the `assets` directory or `styles.scss`.
-- Responsive design is considered across components and layouts.
+- The app uses a Bootstrap theme for consistent styling.
+- Bootstrap utility classes are used throughout for layout, spacing, and UI behavior.
+- Global styles are included in `styles.scss`.
+
